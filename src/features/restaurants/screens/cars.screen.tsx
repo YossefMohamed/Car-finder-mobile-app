@@ -30,8 +30,10 @@ const CarsScreen = () => {
         }}
       >
         <ScrollView>
+          <Title style={{ ...styles.title, color: "white" }}>Top Cars :</Title>
+
           <CarouselCars />
-          <Title style={styles.title}>Top Tags :</Title>
+          <Title style={styles.title}>Top Brands :</Title>
 
           <View style={styles.tagsContainer}>
             <Tag text="BMW" />
