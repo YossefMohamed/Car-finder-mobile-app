@@ -7,7 +7,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { Searchbar, Text, Title } from "react-native-paper";
-import CarouselSlider from "../../../components/carousel";
+import CarouselCars from "../../../components/carousel";
 import Tag from "../../../components/tag";
 import CarsInfoCard from "../components/cars-info-card";
 
@@ -30,7 +30,7 @@ const CarsScreen = () => {
         }}
       >
         <ScrollView>
-          <CarouselSlider />
+          <CarouselCars />
           <Title style={styles.title}>Top Tags :</Title>
 
           <View style={styles.tagsContainer}>

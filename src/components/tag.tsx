@@ -14,5 +14,6 @@ const TagContainer = styled.Text`
   display: flex;
   margin: 5px 5px 5px 0;
   align-self: flex-start;
+  font-weight: bold;
 `;
 export default Tag;
