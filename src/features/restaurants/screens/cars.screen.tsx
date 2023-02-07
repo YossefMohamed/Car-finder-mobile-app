@@ -7,7 +7,8 @@ import {
   StyleSheet,
 } from "react-native";
 import { Searchbar, Text, Title } from "react-native-paper";
-import Tags from "../../../components/tags";
+import CarouselSlider from "../../../components/carousel";
+import Tag from "../../../components/tag";
 import CarsInfoCard from "../components/cars-info-card";
 
 const CarsScreen = () => {
@@ -29,12 +30,20 @@ const CarsScreen = () => {
         }}
       >
         <ScrollView>
-          <View style={{ display: "flex" }}>
-            <Tags />
-            <Tags />
-            <Tags />
-            <Tags />
-            <Tags />
+          <CarouselSlider />
+          <Title style={styles.title}>Top Tags :</Title>
+
+          <View style={styles.tagsContainer}>
+            <Tag text="BMW" />
+            <Tag text="Tesla" />
+            <Tag text="Porsche " />
+            <Tag text="Ford " />
+            <Tag text="Kia " />
+            <Tag text="Honda" />
+            <Tag text="Peugeot" />
+            <Tag text="Mazda" />
+            <Tag text="Volvo" />
+            <Tag text="Jaguar" />
           </View>
           <Title style={styles.title}>Top Cars :</Title>
 
@@ -52,7 +61,7 @@ const CarsScreen = () => {
 const styles = StyleSheet.create({
   title: {
     marginBottom: 15,
-    fontSize: 25,
+    fontSize: 20,
     textTransform: "uppercase",
     fontWeight: "bold",
     borderBottomColor: "black",
@@ -60,5 +69,11 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     paddingVertical: 5,
   },
+  tagsContainer: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
 });
+
 export default CarsScreen;
