@@ -7,6 +7,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { Searchbar, Text, Title } from "react-native-paper";
+import Tags from "../../../components/tags";
 import CarsInfoCard from "../components/cars-info-card";
 
 const CarsScreen = () => {
@@ -28,6 +29,13 @@ const CarsScreen = () => {
         }}
       >
         <ScrollView>
+          <View style={{ display: "flex" }}>
+            <Tags />
+            <Tags />
+            <Tags />
+            <Tags />
+            <Tags />
+          </View>
           <Title style={styles.title}>Top Cars :</Title>
 
           <CarsInfoCard />
