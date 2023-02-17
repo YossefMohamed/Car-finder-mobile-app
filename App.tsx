@@ -1,15 +1,29 @@
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
-import { View } from "react-native";
-import styled from "styled-components/native";
+import styled, { ThemeProvider } from "styled-components/native";
 import CarsScreen from "./src/features/restaurants/screens/cars.screen";
 
+import { theme } from "./src/infrastructure/theme";
+import { useFonts as useLato, Lato_400Regular } from "@expo-google-fonts/lato";
+// import {
+//   useFonts as useOswald,
+//   Oswald_400Regular,
+// } from "@expo-google-fonts/oswald";
 export default function App() {
+  const [LatoLoaded] = useLato({
+    Lato_400Regular,
+  });
+  // const [oswaldLoaded] = useOswald({
+  //   Oswald_400Regular,
+  // });
+
+  // if (!oswaldLoaded || !!LatoLoaded) {
+  //   return null;
+  // }
   return (
-    <>
-      <Clippy></Clippy>
+    <ThemeProvider theme={theme}>
       <CarsScreen />
       <ExpoStatusBar style="auto" />
-    </>
+    </ThemeProvider>
   );
 }
 
@@ -17,11 +31,4 @@ const Text = styled.Text`
   font-size: 18px;
   color: blue;
   font-weight: 500;
-`;
-const Clippy = styled.View`
-  height: 300px;
-  position: absolute;
-  background: #434abf;
-  width: 100%;
-  clip-path: polygon(10% 0, 100% 0%, 100% 100%, 0 100%);
 `;

@@ -6,7 +6,8 @@ import {
   ScrollView,
   StyleSheet,
 } from "react-native";
-import { Searchbar, Text, Title } from "react-native-paper";
+import { Searchbar, Text } from "react-native-paper";
+import styled from "styled-components";
 import CarouselCars from "../../../components/carousel";
 import Tag from "../../../components/tag";
 import CarsInfoCard from "../components/cars-info-card";
@@ -16,13 +17,13 @@ const CarsScreen = () => {
   const onChangeSearch = (text: string) => setSearchQuery(text);
   return (
     <SafeAreaView style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
-      <View style={{ padding: 16 }}>
+      <SearchContainer>
         <Searchbar
           placeholder="Search"
           onChangeText={onChangeSearch}
           value={searchQuery}
         />
-      </View>
+      </SearchContainer>
       <View
         style={{
           flex: 1,
@@ -30,10 +31,10 @@ const CarsScreen = () => {
         }}
       >
         <ScrollView>
-          <Title style={{ ...styles.title, color: "white" }}>Top Cars :</Title>
+          <Title>Top Cars :</Title>
 
           <CarouselCars />
-          <Title style={styles.title}>Top Brands :</Title>
+          <Title>Top Brands :</Title>
 
           <View style={styles.tagsContainer}>
             <Tag text="BMW" />
@@ -47,7 +48,7 @@ const CarsScreen = () => {
             <Tag text="Volvo" />
             <Tag text="Jaguar" />
           </View>
-          <Title style={styles.title}>Top Cars :</Title>
+          <Title>Top Cars :</Title>
 
           <CarsInfoCard />
           <CarsInfoCard />
@@ -61,16 +62,6 @@ const CarsScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  title: {
-    marginBottom: 15,
-    fontSize: 20,
-    textTransform: "uppercase",
-    fontWeight: "bold",
-    borderBottomColor: "black",
-    borderBottomWidth: 2,
-    alignSelf: "flex-start",
-    paddingVertical: 5,
-  },
   tagsContainer: {
     display: "flex",
     flexDirection: "row",
@@ -78,4 +69,21 @@ const styles = StyleSheet.create({
   },
 });
 
+const Title = styled(Text)`
+  margin: ${(props) => props.theme.space[3]} 0;
+  line-height: ${(props) => props.theme.lineHeights.title};
+  font-size: ${(props) => props.theme.fontSizes.title};
+  color: ${(props) => props.theme.colors.text.primary};
+  font-family: ${(props) => props.theme.fonts.heading};
+
+  font-weight: ${(props) => props.theme.fontWeights.bold};
+`;
+const SearchContainer = styled(View)`
+  padding: ${(props) => props.theme.space[3]};
+`;
+// fontSize: props,
+// fontWeight: "bold",
+// borderBottomColor: "black",
+// borderBottomWidth: 2,
+// alignSelf: "flex-start",
 export default CarsScreen;

@@ -9,6 +9,8 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo-google-fonts/lato": "^0.2.2",
+    "@expo-google-fonts/oswald": "^0.2.2",
     "deprecated-react-native-prop-types": "^4.0.0",
     "expo": "~47.0.12",
     "expo-status-bar": "~1.4.2",
@@ -17,6 +19,7 @@
     "react-native": "0.70.5",
     "react-native-paper": "^5.1.4",
     "react-native-snap-carousel": "^3.9.1",
+    "react-native-svg": "^13.4.0",
     "react-native-swiper": "^1.6.0",
     "react-native-web": "~0.18.9",
     "styled-components": "^5.3.6"
