@@ -31,6 +31,7 @@ const getVariant = (
 const SpacerView = styled.View<{ variant: string }>`
   ${(props: { variant: string }) => props.variant};
   flex-direction: row;
+  align-items: flex-end;
 `;
 
 export type Props = {

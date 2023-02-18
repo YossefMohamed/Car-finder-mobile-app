@@ -1,8 +1,6 @@
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
-import { Card } from "react-native-paper";
 import Swiper from "react-native-swiper";
-import CarsInfoCard from "../features/restaurants/components/cars-info-card";
 
 const styles = StyleSheet.create({
   wrapper: { height: 300, borderRadius: 1000, overflow: "hidden" },

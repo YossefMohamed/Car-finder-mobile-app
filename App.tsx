@@ -8,6 +8,7 @@ import {
   useFonts as useOswald,
   Oswald_400Regular,
 } from "@expo-google-fonts/oswald";
+import { View } from "react-native";
 export default function App() {
   const [LatoLoaded] = useLato({
     Lato_400Regular,
@@ -22,7 +23,6 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <CarsScreen />
-      <ExpoStatusBar style="auto" />
     </ThemeProvider>
   );
 }
