@@ -4,7 +4,10 @@ import { Button, Card } from "react-native-paper";
 import { SvgXml } from "react-native-svg";
 import styled from "styled-components";
 import star from "./../../../../assets/star";
-import open from "./../../../../assets/open";
+import reviewIcon from "./../../../../assets/reviewIcon";
+import Tag from "../../../components/tag";
+import { Favourite } from "../../../components/favourite";
+import { Spacer } from "../../../components/spacer";
 const CarsInfoCard: React.FC<any> = ({
   name = "BWM",
   icon = "S",
@@ -18,16 +21,20 @@ const CarsInfoCard: React.FC<any> = ({
   const ratingArray = Array.from(new Array(Math.floor(rating)));
   return (
     <Card style={styles.card}>
+      <Favourite />
       <Card.Cover source={{ uri: photos[0] }} style={{ borderRadius: 0 }} />
       <Card.Content style={{ marginVertical: 10 }}>
         <CardTitle>{name} </CardTitle>
         <Section>
           <Row>
-            {ratingArray.map(() => (
-              <SvgXml xml={star} width={20} height={20} />
+            {ratingArray.map((_: undefined, idx) => (
+              <SvgXml xml={star} width={20} height={20} key={idx} />
             ))}
           </Row>
-          {isOpen && <SvgXml xml={open} width={20} height={20} />}
+          <Spacer position="left" size="large">
+            <Text style={{ marginRight: 5 }}>15</Text>
+            <SvgXml xml={reviewIcon} width={20} height={20} />
+          </Spacer>
         </Section>
 
         <CardContent>Card content</CardContent>
@@ -54,7 +61,6 @@ const styles = StyleSheet.create({
 
 const CardTitle = styled(Text)`
   font-size: ${(props) => props.theme.fontSizes.title};
-  font-family: ${(props) => props.theme.fonts.body};
   font-weight: ${(props) => props.theme.fontWeights.bold};
 `;
 
@@ -70,6 +76,11 @@ const Section = styled(View)`
 `;
 
 const Row = styled(View)`
+  flex-direction: row;
+`;
+
+const ReviewCounter = styled(View)`
+  display: flex;
   flex-direction: row;
 `;
 

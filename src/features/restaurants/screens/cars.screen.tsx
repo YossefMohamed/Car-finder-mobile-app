@@ -48,7 +48,7 @@ const CarsScreen = () => {
             <Tag text="Volvo" />
             <Tag text="Jaguar" />
           </View>
-          <Title>Top Cars :</Title>
+          <Title>Cars :</Title>
 
           <CarsInfoCard />
           <CarsInfoCard />
