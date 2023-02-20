@@ -49,12 +49,7 @@ const CarsScreen = () => {
           value={searchQuery}
         />
       </SearchContainer>
-      <View
-        style={{
-          flex: 1,
-          padding: 16,
-        }}
-      >
+      <ListContainer>
         <CarsList
           data={[
             {
@@ -90,7 +85,7 @@ const CarsScreen = () => {
           keyExtractor={(item: { name: string }) => item.name}
           ListHeaderComponent={ListHeader}
         />
-      </View>
+      </ListContainer>
     </SafeArea>
   );
 };
@@ -119,5 +114,7 @@ const Title = styled(Text)`
 const SearchContainer = styled(View)`
   padding: ${(props) => props.theme.space[3]};
 `;
-
+const ListContainer = styled(View)`
+  padding: ${(props) => props.theme.space[3]};
+`;
 export default CarsScreen;
