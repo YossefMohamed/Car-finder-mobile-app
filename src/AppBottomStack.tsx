@@ -5,6 +5,7 @@ import { SafeArea } from "./components/safeArea";
 import { Text } from "react-native-paper";
 import HomeScreen from "./features/home/screens/home.screen";
 import CarsScreen from "./features/cars/screens/cars.screen";
+import DrawerView from "./DrawerView";
 
 const Tab = createBottomTabNavigator();
 
@@ -31,6 +32,9 @@ const createScreenOptions = ({ route }: { route: { name: string } }) => {
       backgroundColor: colors.brand.dark,
       margin: 5,
     },
+    header({ navigation }) {
+      return <DrawerView />;
+    },
   };
 };
 
@@ -41,32 +45,15 @@ const Settings = () => (
 );
 
 export const AppBottomStack = () => (
-  <Tab.Navigator
-    screenOptions={createScreenOptions}
-    sceneContainerStyle={{
-      backgroundColor: colors.tabs.secondary,
-    }}
-  >
+  <Tab.Navigator screenOptions={createScreenOptions} sceneContainerStyle={{}}>
     <Tab.Screen
       name="Home"
       component={HomeScreen}
       options={{ headerShown: false }}
     />
-    <Tab.Screen
-      name="Cars"
-      component={CarsScreen}
-      options={{ headerShown: false }}
-    />
+    <Tab.Screen name="Cars" component={CarsScreen} />
 
-    <Tab.Screen
-      name="Favorites"
-      component={CarsScreen}
-      options={{ headerShown: false }}
-    />
-    <Tab.Screen
-      name="Settings"
-      component={Settings}
-      options={{ headerShown: false }}
-    />
+    <Tab.Screen name="Favorites" component={CarsScreen} />
+    <Tab.Screen name="Settings" component={Settings} />
   </Tab.Navigator>
 );

@@ -1,18 +1,21 @@
 import * as React from "react";
-import { Text } from "react-native";
 import styled from "styled-components/native";
+import { Text } from "./typography";
 
 const Tag: React.FC<{ text: string }> = ({ text = "carTag" }) => {
-  return <TagContainer>{text}</TagContainer>;
+  return (
+    <TagContainer>
+      <Text variant="caption">{text}</Text>
+    </TagContainer>
+  );
 };
 
-const TagContainer = styled.Text`
-  padding: 5px 8px;
-  background: black;
-  color: white;
+const TagContainer = styled.TouchableOpacity`
+  padding: ${(props) => props.theme.space[1]} ${(props) => props.theme.space[2]};
+  background: ${(props) => props.theme.colors.brand.primary};
   border-radius: 5px;
   display: flex;
-  margin: 5px 5px 5px 0;
+  margin: ${(props) => props.theme.space[1]};
   align-self: flex-start;
   font-weight: bold;
 `;

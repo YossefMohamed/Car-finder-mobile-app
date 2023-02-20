@@ -3,23 +3,34 @@ import {
   SafeAreaView,
   View,
   StatusBar,
+  Text,
   ScrollView,
   StyleSheet,
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import { Searchbar, Text } from "react-native-paper";
+import { Searchbar } from "react-native-paper";
 import styled from "styled-components";
+import CustomButton from "../../../components/button";
 import CarouselCars from "../../../components/carousel";
 import { SafeArea } from "../../../components/safeArea";
 import Tag from "../../../components/tag";
 import CarsInfoCard from "../components/cars-info-card/cars-info-card";
 
-const ListHeader = () => (
+const ListHeader = ({ onChangeSearch, searchQuery }: any) => (
   <>
-    <Title>Top Cars :</Title>
-    <CarouselCars />
-    <Title>Top Brands :</Title>
+    <ScreenHeader>
+      Let's find a <HeaderBold>great</HeaderBold> {"\n"}
+      <HeaderBold>car</HeaderBold> for you
+    </ScreenHeader>
+
+    <SearchContainer>
+      <Searchbar
+        placeholder="Search"
+        onChangeText={onChangeSearch}
+        value={searchQuery}
+      />
+    </SearchContainer>
     <View style={styles.tagsContainer}>
       <Tag text="BMW" />
       <Tag text="Tesla" />
@@ -32,8 +43,10 @@ const ListHeader = () => (
       <Tag text="Volvo" />
       <Tag text="Jaguar" />
     </View>
-
-    <Title>Cars :</Title>
+    <Section>
+      <Title>New cars :</Title>
+      <CustomButton text="More" />
+    </Section>
   </>
 );
 
@@ -42,13 +55,6 @@ const CarsScreen = () => {
   const onChangeSearch = (text: string) => setSearchQuery(text);
   return (
     <SafeArea>
-      <SearchContainer>
-        <Searchbar
-          placeholder="Search"
-          onChangeText={onChangeSearch}
-          value={searchQuery}
-        />
-      </SearchContainer>
       <ListContainer>
         <CarsList
           data={[
@@ -83,7 +89,12 @@ const CarsScreen = () => {
             );
           }}
           keyExtractor={(item: { name: string }) => item.name}
-          ListHeaderComponent={ListHeader}
+          ListHeaderComponent={
+            <ListHeader
+              onChangeSearch={onChangeSearch}
+              searchQuery={searchQuery}
+            />
+          }
         />
       </ListContainer>
     </SafeArea>
@@ -98,23 +109,40 @@ const styles = StyleSheet.create({
   },
 });
 
+const ScreenHeader = styled.Text`
+  font-family: ${(props) => props.theme.fonts.heading};
+
+  font-size: ${(props) => props.theme.fontSizes.h4};
+`;
+
 const CarsList = styled(FlatList)`
   padding: ${(props) => props.theme.space[0]} 0;
 `;
 
-const Title = styled(Text)`
+const HeaderBold = styled.Text`
+  color: ${(props) => props.theme.colors.brand.primary};
+  font-size: ${(props) => props.theme.fontSizes.h3};
+
+  font-weight: ${(props) => props.theme.fontWeights.bold};
+`;
+export const Title = styled(Text)`
   margin: ${(props) => props.theme.space[3]} 0;
   line-height: ${(props) => props.theme.lineHeights.title};
   font-size: ${(props) => props.theme.fontSizes.title};
   color: ${(props) => props.theme.colors.text.primary};
-  font-family: ${(props) => props.theme.fonts.heading};
-
-  font-weight: ${(props) => props.theme.fontWeights.bold};
+  font-family: ${(props) => props.theme.fonts.body};
+  text-transform: uppercase;
 `;
 const SearchContainer = styled(View)`
-  padding: ${(props) => props.theme.space[3]};
+  padding: ${(props) => props.theme.space[3]} 0;
 `;
 const ListContainer = styled(View)`
-  padding: ${(props) => props.theme.space[3]};
+  padding: 0 ${(props) => props.theme.space[3]};
+`;
+
+const Section = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 `;
 export default CarsScreen;

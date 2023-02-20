@@ -12,7 +12,11 @@ const CustomButton = ({ text }: { text: string }) => {
 const ButtonContainer = styled.TouchableOpacity`
   background: ${(props) => props.theme.colors.brand.primary};
   padding: ${(props) => props.theme.space[2]} ${(props) => props.theme.space[0]};
-  border-radius: 20px;
+  border-radius: 10px;
+  min-width: 60px;
+  max-height: 40px;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ButtonText = styled.Text`

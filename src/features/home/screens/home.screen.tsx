@@ -5,11 +5,13 @@ import styled from "styled-components";
 import images from "../../../../assets/Images";
 import CustomButton from "../../../components/button";
 import { SafeArea } from "../../../components/safeArea";
+import HeaderHome from "../components/HeaderHome";
 
 function HomeScreen() {
   return (
     <SafeArea>
       <HomeContainer>
+        <HeaderHome />
         <TitleContainer>
           <Title>Bated Car</Title>
           <TitleSecondary>Rent your car to earn money</TitleSecondary>
@@ -28,13 +30,14 @@ const HomeContainer = styled(View)`
 const BackgroundImage = styled.Image`
   height: 100%;
   width: 100%;
+  position: absolute;
   top: 0;
 `;
 
 const TitleContainer = styled(View)`
   z-index: 1;
   position: absolute;
-  top: 80px;
+  top: ${(props) => props.theme.space[5]};
   left: 20px;
 `;
 
@@ -46,7 +49,7 @@ const Title = styled.Text`
 
 const TitleSecondary = styled.Text`
   color: ${(props) => props.theme.colors.text.primary};
-  margin: ${(props) => props.theme.space[2]} 0
+  margin: ${(props) => props.theme.space[3]} 0
     ${(props) => props.theme.space[3]};
   font-size: ${(props) => props.theme.fontSizes.title};
 

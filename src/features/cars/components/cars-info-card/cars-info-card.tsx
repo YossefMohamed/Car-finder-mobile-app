@@ -6,17 +6,17 @@ import star from "../../../../../assets/star";
 import reviewIcon from "../../../../../assets/reviewIcon";
 import Tag from "../../../../components/tag";
 import { Favourite } from "../../../../components/favourite";
-import { Spacer } from "../../../../components/spacer";
 import { Text } from "../../../../components/typography";
 import {
   CardContainer,
-  Description,
-  Info,
-  Rating,
-  RestaurantCardCover,
-  Row,
-  Section,
+  CardContent,
+  CardDetails,
+  CardImage,
+  CardRating,
+  CardSecondaryTitle,
+  CardTitle,
 } from "./cars-info-card.styles";
+import { Spacer } from "../../../../components/spacer";
 const CarsInfoCard: React.FC<any> = ({
   name = "Peugeot",
   icon = "S",
@@ -29,25 +29,53 @@ const CarsInfoCard: React.FC<any> = ({
 }) => {
   const ratingArray = Array.from(new Array(Math.floor(rating)));
   return (
-    <CardContainer>
-      <Favourite />
-      <RestaurantCardCover source={{ uri: photos[0] }} />
-      <Info>
-        <Text variant="title">{name} </Text>
-        <Section>
-          <Rating>
-            {ratingArray.map((_: undefined, idx) => (
-              <SvgXml xml={star} width={20} height={20} key={idx} />
-            ))}
-          </Rating>
-          <Spacer position="left" size="large">
-            <Text variant="body">15</Text>
-            <SvgXml xml={reviewIcon} width={20} height={20} />
-          </Spacer>
-        </Section>
+    // <CardContainer>
+    //   <Favourite />
+    //   <RestaurantCardCover source={{ uri: photos[0] }} />
+    //   <Info>
+    //     <Text variant="title">{name} </Text>
+    //     <Section>
+    //       <Rating>
+    // {ratingArray.map((_: undefined, idx) => (
+    //   <SvgXml xml={star} width={20} height={20} key={idx} />
+    // ))}
+    //       </Rating>
+    //       <Spacer position="left" size="large">
+    //         <Text variant="body">15</Text>
+    //         <SvgXml xml={reviewIcon} width={20} height={20} />
+    //       </Spacer>
+    //     </Section>
 
-        <Description>Card content</Description>
-      </Info>
+    //     <Description>Card content</Description>
+    //   </Info>
+    // </CardContainer>
+    <CardContainer>
+      <CardImage source={{ uri: photos[0] }} />
+      <CardContent>
+        <CardTitle>{name}</CardTitle>
+        <Text variant="caption">Egypt</Text>
+        <Text variant="caption" style={{ marginTop: 10 }}>
+          Lorem ipsum dolor sit amet consectetur ad...
+        </Text>
+        <CardRating>
+          {ratingArray.map((_: undefined, idx) => (
+            <SvgXml xml={star} width={20} height={20} key={idx} />
+          ))}
+          <Spacer position="left" size="large">
+            <Text variant="label">{rating}</Text>
+          </Spacer>
+        </CardRating>
+        <CardDetails>
+          <View>
+            <Text variant="caption">Days</Text>
+            <Text variant="label">4 Days</Text>
+          </View>
+          <View>
+            <Text variant="caption">Price</Text>
+            <Text variant="label">$1500</Text>
+          </View>
+        </CardDetails>
+      </CardContent>
     </CardContainer>
   );
 };
