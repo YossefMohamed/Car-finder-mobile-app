@@ -17,6 +17,7 @@ import {
   CardTitle,
 } from "./cars-info-card.styles";
 import { Spacer } from "../../../../components/spacer";
+import { useNavigation } from "@react-navigation/native";
 const CarsInfoCard: React.FC<any> = ({
   name = "Peugeot",
   icon = "S",
@@ -27,6 +28,7 @@ const CarsInfoCard: React.FC<any> = ({
   rating = 3.5,
   isOpen = true,
 }) => {
+  const navigation = useNavigation();
   const ratingArray = Array.from(new Array(Math.floor(rating)));
   return (
     // <CardContainer>
@@ -49,7 +51,7 @@ const CarsInfoCard: React.FC<any> = ({
     //     <Description>Card content</Description>
     //   </Info>
     // </CardContainer>
-    <CardContainer>
+    <CardContainer onPress={() => navigation.navigate("CarScreen")}>
       <CardImage source={{ uri: photos[0] }} />
       <CardContent>
         <CardTitle>{name}</CardTitle>

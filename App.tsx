@@ -10,8 +10,9 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 
 import { colors } from "./src/infrastructure/theme/colors";
-import { AppBottomStack } from "./src/AppBottomStack";
+import { AppBottomStack } from "./src/infrastructure/navigation/AppBottomStack";
 import { AppDrawerStack } from "./src/AppDrawerStack";
+import Navigation from "./src/infrastructure/navigation";
 
 export default function App() {
   const [LatoLoaded] = useLato({
@@ -29,7 +30,7 @@ export default function App() {
     <>
       <ThemeProvider theme={theme}>
         <NavigationContainer>
-          <AppDrawerStack />
+          <Navigation />
         </NavigationContainer>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />

@@ -9,6 +9,10 @@ export const colors = {
     primary: "#FFFFFF",
     secondary: "#757575",
   },
+  tags: {
+    primary: "#f49f10",
+    secondary: "#FFFFFF",
+  },
   ui: {
     primary: "#262626",
     secondary: "#757575",

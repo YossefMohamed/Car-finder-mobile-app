@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import styled from "styled-components";
 
 // export const Section = styled(View)`
@@ -15,7 +15,7 @@ import styled from "styled-components";
 //   display: flex;
 //   flex-direction: row;
 // `;
-export const CardContainer = styled(View)`
+export const CardContainer = styled(TouchableOpacity)`
   border-radius: 0;
   margin-bottom: 15px;
   min-height: 200px;

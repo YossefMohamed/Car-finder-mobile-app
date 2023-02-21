@@ -1,0 +1,64 @@
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { colors } from "../theme/colors";
+import { Ionicons } from "@expo/vector-icons";
+import { SafeArea } from "../../components/safeArea";
+import { Text } from "react-native-paper";
+import HomeScreen from "../../features/home/screens/home.screen";
+import CarsScreen from "../../features/cars/screens/cars.screen";
+import DrawerView from "../../components/DrawerView";
+import CarNavigation from "./car.navigation";
+
+const Tab = createBottomTabNavigator();
+
+const TAB_ICON: any = {
+  Cars: "car",
+  Settings: "settings",
+  Home: "home",
+  Favorites: "heart-circle-sharp",
+};
+
+const createScreenOptions = ({ route }: { route: { name: string } }) => {
+  const iconName = TAB_ICON[route.name];
+  return {
+    tabBarIcon: ({ size, color }: any) => (
+      <Ionicons name={iconName} size={size} color={color} />
+    ),
+    tabBarActiveTintColor: colors.tabs.primary,
+    tabBarInactiveTintColor: colors.tabs.secondary,
+    tabBarStyle: {
+      backgroundColor: colors.brand.dark,
+      borderTopWidth: 0,
+    },
+    tabBarItemStyle: {
+      backgroundColor: colors.brand.dark,
+      margin: 5,
+    },
+    header({ navigation }) {
+      return <DrawerView />;
+    },
+  };
+};
+
+const Settings = () => (
+  <SafeArea>
+    <Text>awd</Text>
+  </SafeArea>
+);
+
+export const AppBottomStack = () => (
+  <Tab.Navigator screenOptions={createScreenOptions}>
+    <Tab.Screen
+      name="Home"
+      component={HomeScreen}
+      options={{ headerShown: false }}
+    />
+    <Tab.Screen
+      name="Cars"
+      component={CarNavigation}
+      options={{ headerShown: false }}
+    />
+
+    <Tab.Screen name="Favorites" component={CarsScreen} />
+    <Tab.Screen name="Settings" component={Settings} />
+  </Tab.Navigator>
+);

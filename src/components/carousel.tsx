@@ -1,9 +1,10 @@
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import Swiper from "react-native-swiper";
+import styled from "styled-components";
 
 const styles = StyleSheet.create({
-  wrapper: { height: 300, borderRadius: 1000, overflow: "hidden" },
+  wrapper: { height: 500, borderRadius: 1000, overflow: "hidden" },
   slide1: {
     flex: 1,
     justifyContent: "center",
@@ -31,20 +32,30 @@ const styles = StyleSheet.create({
 const CarouselCars = () => {
   return (
     <Swiper style={styles.wrapper}>
-      <Image
-        style={{ width: "100%", height: "100%" }}
+      <ImageSwipper
         source={{
-          uri: "https://pix10.agoda.net/hotelImages/281/28117539/28117539_210919224500105697246.jpg?s=768x1024",
+          uri: "https://media.autoexpress.co.uk/image/private/s--VxqYOYmG--/f_auto,t_content-image-full-mobile@1/v1614096781/autoexpress/2021/02/Jaguar%20XF%202021%20-%20front%20driving.jpg",
         }}
       />
-      <View style={styles.slide2}>
-        <Text style={styles.text}>Beautiful</Text>
-      </View>
-      <View style={styles.slide3}>
-        <Text style={styles.text}>And simple</Text>
-      </View>
+      <ImageSwipper
+        source={{
+          uri: "https://cdn.pixabay.com/photo/2020/06/13/16/29/fiat-5294867__340.jpg",
+        }}
+      />
+      <ImageSwipper
+        source={{
+          uri: "https://media.autoexpress.co.uk/image/private/s--VxqYOYmG--/f_auto,t_content-image-full-mobile@1/v1614096781/autoexpress/2021/02/Jaguar%20XF%202021%20-%20front%20driving.jpg",
+        }}
+      />
     </Swiper>
   );
 };
+
+const ImageSwipper = styled.Image`
+  width: 100%;
+  height: 100%;
+  align-self: center;
+  resize-mode: stretch;
+`;
 
 export default CarouselCars;
