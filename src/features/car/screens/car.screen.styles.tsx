@@ -11,8 +11,8 @@ export const Row = styled.View`
   justify-content: space-between;
 `;
 export const CarDetailsTitle = styled.Text`
-  font-size: ${(props) => props.theme.fontSizes.h5};
-  font-weight: ${(props) => props.theme.fontWeights.medium};
+  font-size: ${(props) => props.theme.fontSizes.h4};
+  font-weight: ${(props) => props.theme.fontWeights.regular};
   font-family: ${(props) => props.theme.fonts.body};
 `;
 
@@ -46,4 +46,13 @@ export const RatingContainer = styled.View`
 export const TagContainer = styled.View`
   flex-direction: row;
   margin: ${(props) => props.theme.space[4]} 0;
+`;
+
+export const Description = styled.View`
+  padding: ${(props) => props.theme.space[4]} ${(props) => props.theme.space[4]}
+    0 0;
+`;
+
+export const DescriptionBody = styled.View`
+  margin: ${(props) => props.theme.space[2]} 0;
 `;

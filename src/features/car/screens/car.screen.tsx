@@ -10,6 +10,8 @@ import { Text } from "../../../components/typography";
 import CarScreenHeader from "../components/header";
 import {
   CarDetailsTitle,
+  Description,
+  DescriptionBody,
   Details,
   RatingContainer,
   Row,
@@ -37,7 +39,7 @@ function CarScreen() {
                 }}
               />
               <Row>
-                <Text variant="hint">4.5</Text>
+                <Text variant="body">4.5</Text>
                 <RatingContainer>
                   <SvgXml xml={star} width={15} height={15} />
                 </RatingContainer>
@@ -51,12 +53,17 @@ function CarScreen() {
             <Tag text="Reviews" />
           </TagContainer>
           <CarouselCards />
-          <TagContainer>
-            <Tag text="Overall" selected />
-            <Tag text="Car" />
-            <Tag text="Location" />
-            <Tag text="Reviews" />
-          </TagContainer>
+          <Description>
+            <Text variant="title">DESCRIPTION :</Text>
+            <DescriptionBody>
+              <Text variant="label">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas
+                debitis consequuntur, labore culpa corporis est porro nisi, non
+                voluptate iste laudantium ab excepturi maxime ut recusandae
+                ullam perspiciatis, voluptatem illo.
+              </Text>
+            </DescriptionBody>
+          </Description>
         </Details>
       </ScrollView>
     </SafeArea>
