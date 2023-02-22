@@ -13,6 +13,7 @@ import { colors } from "./src/infrastructure/theme/colors";
 import { AppBottomStack } from "./src/infrastructure/navigation/AppBottomStack";
 import { AppDrawerStack } from "./src/AppDrawerStack";
 import Navigation from "./src/infrastructure/navigation";
+import LoginScreen from "./src/features/login/screens/login.screen";
 
 export default function App() {
   const [LatoLoaded] = useLato({
@@ -32,6 +33,8 @@ export default function App() {
         <NavigationContainer>
           <Navigation />
         </NavigationContainer>
+
+        {/* <LoginScreen /> */}
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </>
