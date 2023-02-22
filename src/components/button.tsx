@@ -1,9 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
-const CustomButton = ({ text }: { text: string }) => {
+const CustomButton = ({
+  text,
+  onPress,
+}: {
+  text: string;
+  onPress: () => void;
+}) => {
   return (
-    <ButtonContainer>
+    <ButtonContainer onPress={onPress}>
       <ButtonText>{text}</ButtonText>
     </ButtonContainer>
   );

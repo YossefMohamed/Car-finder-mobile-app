@@ -3,6 +3,7 @@ import React from "react";
 import DrawerView from "../../components/DrawerView";
 import CarScreen from "../../features/car/screens/car.screen";
 import CarsScreen from "../../features/cars/screens/cars.screen";
+import LoginScreen from "../../features/login/screens/login.screen";
 
 function CarNavigation() {
   const CarStack = createStackNavigator();
@@ -16,6 +17,11 @@ function CarNavigation() {
       }}
     >
       <CarStack.Screen name="Cars" component={CarsScreen} />
+      <CarStack.Screen
+        name="LoginScreen"
+        component={LoginScreen}
+        options={{ headerShown: false }}
+      />
       <CarStack.Screen
         name="CarScreen"
         component={CarScreen}

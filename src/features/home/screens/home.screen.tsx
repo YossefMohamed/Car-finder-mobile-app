@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Image } from "react-native";
 import { Text } from "react-native-paper";
@@ -8,6 +9,7 @@ import { SafeArea } from "../../../components/safeArea";
 import HeaderHome from "../components/HeaderHome";
 
 function HomeScreen() {
+  const navigation = useNavigation();
   return (
     <SafeArea>
       <HomeContainer>
@@ -15,7 +17,12 @@ function HomeScreen() {
         <TitleContainer>
           <Title>Bated Car</Title>
           <TitleSecondary>Rent your car to earn money</TitleSecondary>
-          <CustomButton text="Start Now" />
+          <CustomButton
+            text="Start Now"
+            onPress={() => {
+              navigation.navigate("LoginScreen");
+            }}
+          />
         </TitleContainer>
         <BackgroundImage source={images.main_bg} />
       </HomeContainer>
