@@ -16,8 +16,12 @@ import {
   CardSecondaryTitle,
   CardTitle,
 } from "./cars-info-card.styles";
+import { Ionicons } from "@expo/vector-icons";
+
 import { Spacer } from "../../../../components/spacer";
 import { useNavigation } from "@react-navigation/native";
+import { LovedContainer } from "../../../car/screens/car.screen.styles";
+import { colors } from "../../../../infrastructure/theme/colors";
 const CarsInfoCard: React.FC<any> = ({
   name = "Peugeot",
   icon = "S",
@@ -52,6 +56,9 @@ const CarsInfoCard: React.FC<any> = ({
     //   </Info>
     // </CardContainer>
     <CardContainer onPress={() => navigation.navigate("CarScreen")}>
+      <LovedContainer>
+        <Ionicons name="heart-outline" color={colors.brand.primary} size={20} />
+      </LovedContainer>
       <CardImage source={{ uri: photos[0] }} />
       <CardContent>
         <CardTitle>{name}</CardTitle>

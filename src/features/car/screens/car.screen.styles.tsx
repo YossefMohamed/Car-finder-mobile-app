@@ -75,3 +75,9 @@ export const PriceCotnainer = styled.View`
   align-items: flex-start;
   justify-content: flex-start;
 `;
+
+export const LovedContainer = styled.View`
+  position: absolute;
+  top: ${(props) => props.theme.space[2]};
+  right: ${(props) => props.theme.space[2]};
+`;
