@@ -11,13 +11,13 @@ export const Row = styled.View`
   justify-content: space-between;
 `;
 export const CarDetailsTitle = styled.Text`
-  font-size: ${(props) => props.theme.fontSizes.h4};
+  font-size: ${(props) => props.theme.fontSizes.h5};
   font-weight: ${(props) => props.theme.fontWeights.regular};
-  font-family: ${(props) => props.theme.fonts.body};
+  flex: 1;
 `;
 
 export const Details = styled.ScrollView`
-  padding: ${(props) => props.theme.space[4]} 0 0
+  padding: ${(props) => props.theme.space[2]} 0 0
     ${(props) => props.theme.space[4]};
 `;
 
@@ -76,7 +76,7 @@ export const PriceCotnainer = styled.View`
   justify-content: flex-start;
 `;
 
-export const LovedContainer = styled.View`
+export const LovedContainer = styled.TouchableOpacity`
   position: absolute;
   top: ${(props) => props.theme.space[2]};
   right: ${(props) => props.theme.space[2]};

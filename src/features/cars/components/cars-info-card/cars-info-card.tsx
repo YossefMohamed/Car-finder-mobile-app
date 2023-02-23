@@ -56,7 +56,9 @@ const CarsInfoCard: React.FC<any> = ({
     //   </Info>
     // </CardContainer>
     <CardContainer onPress={() => navigation.navigate("CarScreen")}>
-      <LovedContainer>
+      <LovedContainer
+        onPress={() => navigation.getParent("filterDrawer").openDrawer()}
+      >
         <Ionicons name="heart-outline" color={colors.brand.primary} size={20} />
       </LovedContainer>
       <CardImage source={{ uri: photos[0] }} />

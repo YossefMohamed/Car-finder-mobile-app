@@ -34,7 +34,7 @@ function CarScreen() {
         </SwipperContainer>
         <Details>
           <Row>
-            <CarDetailsTitle>Audi RS7</CarDetailsTitle>
+            <Text variant="title">Audi RS7udi RS7 2004 </Text>
             <UserContainer>
               <UserImage
                 source={{
