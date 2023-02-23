@@ -11,6 +11,7 @@
   "dependencies": {
     "@expo-google-fonts/lato": "^0.2.2",
     "@expo-google-fonts/oswald": "^0.2.2",
+    "@jesster2k10/react-native-range-slider": "^0.3.1",
     "@react-navigation/bottom-tabs": "^6.5.5",
     "@react-navigation/drawer": "^6.6.0",
     "@react-navigation/native": "^6.1.4",

@@ -35,6 +35,14 @@ const label = (theme: any) => `
     font-size: ${theme.fontSizes.body};
     font-weight: ${theme.fontWeights.medium};
 `;
+const paragraph = (theme: any) => `
+font-family: ${theme.fonts.heading};
+font-size: ${theme.fontSizes.body};
+font-weight: ${theme.fontWeights.medium};
+color: ${theme.colors.text.secondary};
+line-height: ${theme.lineHeights.copy};
+
+`;
 
 const variants = {
   body,
@@ -42,6 +50,7 @@ const variants = {
   caption,
   error,
   hint,
+  paragraph,
   title,
 };
 
@@ -52,5 +61,12 @@ export const Text = styled.Text<ITextProps>`
 
 interface ITextProps {
   theme: any;
-  variant: "body" | "label" | "caption" | "error" | "hint" | "title";
+  variant:
+    | "body"
+    | "label"
+    | "caption"
+    | "error"
+    | "hint"
+    | "title"
+    | "paragraph";
 }

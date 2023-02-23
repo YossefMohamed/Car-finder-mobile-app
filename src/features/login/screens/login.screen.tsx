@@ -3,8 +3,8 @@ import { ScrollView, TextInput } from "react-native";
 import styled from "styled-components";
 import images from "../../../../assets/Images";
 import CustomButton from "../../../components/button";
+import CustomTextInput from "../../../components/CustomTextInput";
 import { SafeArea } from "../../../components/safeArea";
-import { Spacer } from "../../../components/spacer";
 import { Text } from "../../../components/typography";
 
 function LoginScreen() {
@@ -23,7 +23,11 @@ function LoginScreen() {
           <TextInputContainer>
             <Text variant="caption">Email</Text>
 
-            <CustomTextInput placeholder="Email" value={email} />
+            <CustomTextInput
+              placeholder="Email"
+              value={email}
+              onChangeText={(text: string) => setEmail(text)}
+            />
           </TextInputContainer>
           <TextInputContainer>
             <Text variant="caption">Password</Text>
@@ -31,6 +35,7 @@ function LoginScreen() {
               placeholder="Password"
               secureTextEntry={true}
               value={password}
+              onChangeText={(text: string) => setPassword(text)}
             />
           </TextInputContainer>
           <ForgetPasswordContainer>
@@ -83,18 +88,6 @@ const LinkContainer = styled.View`
   margin: ${(props) => props.theme.space[4]} 0;
   justify-content: center;
   align-items: center;
-`;
-
-const CustomTextInput = styled(TextInput)`
-  padding: ${(props) => props.theme.space[2]};
-  border-radius: 5px;
-  border: ${(props) => props.theme.colors.brand.primary} solid 1px;
-  margin: ${(props) => props.theme.space[1]} 0;
-  background-color: ${(props) => props.theme.colors.bg.primary};
-  &:focus {
-    outline: none;
-    box-shadow: 0px 0px 2px red;
-  }
 `;
 
 const ForgetPasswordContainer = styled.View`

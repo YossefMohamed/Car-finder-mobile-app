@@ -18,16 +18,6 @@ function CarNavigation() {
       }}
     >
       <CarStack.Screen name="Cars" component={CarsScreen} />
-      <CarStack.Screen
-        name="LoginScreen"
-        component={LoginScreen}
-        options={{ headerShown: false }}
-      />
-      <CarStack.Screen
-        name="RegisterScreen"
-        component={RegisterScreen}
-        options={{ headerShown: false }}
-      />
 
       <CarStack.Screen
         name="CarScreen"

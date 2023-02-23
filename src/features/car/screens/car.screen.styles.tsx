@@ -56,3 +56,22 @@ export const Description = styled.View`
 export const DescriptionBody = styled.View`
   margin: ${(props) => props.theme.space[2]} 0;
 `;
+
+export const ButtonContainer = styled.View`
+  height: 10%;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border: ${(props) => props.theme.colors.brand.primary} 5px solid;
+  border-bottom-width: 0px;
+  border-left-width: 0px;
+  border-right-width: 0px;
+  background-color: ${(props) => props.theme.colors.bg.primary};
+  padding: 0 ${(props) => props.theme.space[5]};
+`;
+export const PriceCotnainer = styled.View`
+  flex: 1;
+  align-items: flex-start;
+  justify-content: flex-start;
+`;

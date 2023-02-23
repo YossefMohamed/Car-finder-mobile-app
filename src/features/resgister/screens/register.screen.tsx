@@ -3,12 +3,14 @@ import { ScrollView, TextInput } from "react-native";
 import styled from "styled-components";
 import images from "../../../../assets/Images";
 import CustomButton from "../../../components/button";
+import CustomTextInput from "../../../components/CustomTextInput";
 import { SafeArea } from "../../../components/safeArea";
 import { Spacer } from "../../../components/spacer";
 import { Text } from "../../../components/typography";
 
 function RegisterScreen() {
   const [email, setEmail] = React.useState("");
+  const [name, setName] = React.useState("");
   const [password, setPassword] = React.useState("");
 
   return (
@@ -16,19 +18,27 @@ function RegisterScreen() {
       <ScrollView>
         <LoginContainer>
           <ImageContainer source={images.login_image} resizeMode="contain" />
-          <CustomScreenHeader>Hello There Welcome 😁</CustomScreenHeader>
+          <CustomScreenHeader>Hello There Welcome </CustomScreenHeader>
           <CaptionContainer>
             <Text variant="caption">Sign up to start your journey</Text>
           </CaptionContainer>
           <TextInputContainer>
             <Text variant="caption">Name</Text>
-            <CustomTextInput placeholder="Name" value={password} />
+            <CustomTextInput
+              placeholder="Name"
+              value={name}
+              onChangeText={(text: string) => setName(text)}
+            />
           </TextInputContainer>
 
           <TextInputContainer>
             <Text variant="caption">Email</Text>
 
-            <CustomTextInput placeholder="Email" value={email} />
+            <CustomTextInput
+              placeholder="Email"
+              value={email}
+              onChangeText={(text: string) => setEmail(text)}
+            />
           </TextInputContainer>
           <TextInputContainer>
             <Text variant="caption">Password</Text>
@@ -36,16 +46,20 @@ function RegisterScreen() {
               placeholder="Password"
               secureTextEntry={true}
               value={password}
+              onChangeText={(text: string) => setPassword(text)}
             />
           </TextInputContainer>
           <ForgetPasswordContainer>
             <Text variant="caption">Forget Password ?</Text>
           </ForgetPasswordContainer>
-          <TextInputContainer>
-            <CustomButton text="Sign in" onPress={() => console.log("hi")} />
-          </TextInputContainer>
           <LinkContainer>
-            <Text variant="caption">New user sign up</Text>
+            <CustomButton text="Sign in" onPress={() => console.log("hi")} />
+          </LinkContainer>
+          <Center>
+            <Text variant="label">OR</Text>
+          </Center>
+          <LinkContainer>
+            <CustomButton text="sign up" link={true} />
           </LinkContainer>
         </LoginContainer>
       </ScrollView>
@@ -54,17 +68,18 @@ function RegisterScreen() {
 }
 
 const LoginContainer = styled.View`
-  margin-top: 10%;
+  margin-top: 8%;
   height: 90%;
   padding: 0 ${(props) => props.theme.space[3]};
 `;
 const ImageContainer = styled.Image`
   width: 120px;
   height: 120px;
+  margin-left: ${(props) => props.theme.space[4]};
 `;
 
 const TextInputContainer = styled.View`
-  margin: ${(props) => props.theme.space[1]} 0;
+  margin: ${(props) => props.theme.space[0]} 0;
 `;
 
 const CustomScreenHeader = styled.Text`
@@ -85,21 +100,7 @@ const HeaderBold = styled.Text`
 `;
 
 const LinkContainer = styled.View`
-  margin: ${(props) => props.theme.space[4]} 0;
-  justify-content: center;
-  align-items: center;
-`;
-
-const CustomTextInput = styled(TextInput)`
-  padding: ${(props) => props.theme.space[2]};
-  border-radius: 5px;
-  border: ${(props) => props.theme.colors.brand.primary} solid 1px;
-  margin: ${(props) => props.theme.space[1]} 0;
-  background-color: ${(props) => props.theme.colors.bg.primary};
-  &:focus {
-    outline: none;
-    box-shadow: 0px 0px 2px red;
-  }
+  margin: ${(props) => props.theme.space[3]} 0;
 `;
 
 const ForgetPasswordContainer = styled.View`
@@ -107,6 +108,11 @@ const ForgetPasswordContainer = styled.View`
   align-items: flex-end;
   text-transform: uppercase;
   margin: ${(props) => props.theme.space[1]} 0;
+`;
+
+const Center = styled.View`
+  justify-content: center;
+  align-items: center;
 `;
 
 export default RegisterScreen;

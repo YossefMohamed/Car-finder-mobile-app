@@ -12,6 +12,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { colors } from "./src/infrastructure/theme/colors";
 import Navigation from "./src/infrastructure/navigation";
 import RegisterScreen from "./src/features/resgister/screens/register.screen";
+import { createStackNavigator } from "@react-navigation/stack";
+import LoginScreen from "./src/features/login/screens/login.screen";
+import LoginHeader from "./src/components/headerLogin";
+
+const MainStack = createStackNavigator();
 
 export default function App() {
   const [LatoLoaded] = useLato({
@@ -29,7 +34,25 @@ export default function App() {
     <>
       <ThemeProvider theme={theme}>
         <NavigationContainer>
-          <Navigation />
+          <MainStack.Navigator
+            screenOptions={{
+              header({ navigation }) {
+                return <LoginHeader />;
+              },
+            }}
+          >
+            <MainStack.Screen
+              name="Index"
+              component={Navigation}
+              options={{ headerShown: false }}
+            />
+            <MainStack.Screen
+              name="RegisterScreen"
+              component={RegisterScreen}
+            />
+
+            <MainStack.Screen name="LoginScreen" component={LoginScreen} />
+          </MainStack.Navigator>
         </NavigationContainer>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />

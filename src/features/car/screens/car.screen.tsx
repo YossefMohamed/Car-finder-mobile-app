@@ -2,6 +2,7 @@ import React from "react";
 import { ScrollView } from "react-native";
 import { SvgXml } from "react-native-svg";
 import star from "../../../../assets/star";
+import CustomButton from "../../../components/button";
 import CarouselCars from "../../../components/carousel";
 import CarouselCards from "../../../components/features.carsousel";
 import { SafeArea } from "../../../components/safeArea";
@@ -9,10 +10,12 @@ import Tag from "../../../components/tag";
 import { Text } from "../../../components/typography";
 import CarScreenHeader from "../components/header";
 import {
+  ButtonContainer,
   CarDetailsTitle,
   Description,
   DescriptionBody,
   Details,
+  PriceCotnainer,
   RatingContainer,
   Row,
   SwipperContainer,
@@ -56,16 +59,25 @@ function CarScreen() {
           <Description>
             <Text variant="title">DESCRIPTION :</Text>
             <DescriptionBody>
-              <Text variant="label">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas
-                debitis consequuntur, labore culpa corporis est porro nisi, non
-                voluptate iste laudantium ab excepturi maxime ut recusandae
-                ullam perspiciatis, voluptatem illo.
+              <Text variant="paragraph">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia
+                dicta modi nostrum odit odio nemo neque vel officiis sit
+                similique voluptas enim qui veritatis error velit cum voluptate,
+                quisquam quibusdam?nostrum odit odio nemo neque vel officiis sit
+                similique voluptas enim qui veritatis error velit cum voluptate,
+                quisquam quibusdam?
               </Text>
             </DescriptionBody>
           </Description>
         </Details>
       </ScrollView>
+      <ButtonContainer>
+        <PriceCotnainer>
+          <Text variant="title">$0.85</Text>
+          <Text variant="caption">Per Kilo</Text>
+        </PriceCotnainer>
+        <CustomButton text="Book Now" onPress={console.log} />
+      </ButtonContainer>
     </SafeArea>
   );
 }
