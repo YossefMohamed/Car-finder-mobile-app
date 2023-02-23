@@ -4,6 +4,7 @@ import DrawerView from "../../components/DrawerView";
 import CarScreen from "../../features/car/screens/car.screen";
 import CarsScreen from "../../features/cars/screens/cars.screen";
 import LoginScreen from "../../features/login/screens/login.screen";
+import RegisterScreen from "../../features/resgister/screens/register.screen";
 
 function CarNavigation() {
   const CarStack = createStackNavigator();
@@ -22,6 +23,12 @@ function CarNavigation() {
         component={LoginScreen}
         options={{ headerShown: false }}
       />
+      <CarStack.Screen
+        name="RegisterScreen"
+        component={RegisterScreen}
+        options={{ headerShown: false }}
+      />
+
       <CarStack.Screen
         name="CarScreen"
         component={CarScreen}

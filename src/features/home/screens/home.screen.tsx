@@ -20,7 +20,7 @@ function HomeScreen() {
           <CustomButton
             text="Start Now"
             onPress={() => {
-              navigation.navigate("LoginScreen");
+              navigation.navigate("RegisterScreen");
             }}
           />
         </TitleContainer>
