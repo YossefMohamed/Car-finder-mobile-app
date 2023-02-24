@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   SafeAreaView,
   View,
@@ -10,6 +10,7 @@ import {
 import styles from "./styles";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { colors } from "../theme/colors";
+import CustomButton from "../../components/button";
 
 export default function FilterDrawerContent({ navigation }: any) {
   const [location, setLocation] = useState();
@@ -18,6 +19,8 @@ export default function FilterDrawerContent({ navigation }: any) {
   const [open, setOpen] = useState(false);
   const [creditCard, setCreditCard] = useState(false);
   const [free, setFree] = useState(false);
+  const [low, setLow] = useState(0);
+  const [high, setHigh] = useState(0);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -364,14 +367,8 @@ export default function FilterDrawerContent({ navigation }: any) {
         <View style={styles.item}>
           <Text style={styles.title}>PRICE RANGE ($)</Text>
         </View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            navigation.closeDrawer();
-          }}
-        >
-          <Text style={styles.buttonTxt}>Apply Filters</Text>
-        </TouchableOpacity>
+
+        <CustomButton text="Apply Filter" onPress={console.log} />
       </ScrollView>
     </SafeAreaView>
   );
