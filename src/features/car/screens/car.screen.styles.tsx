@@ -49,13 +49,10 @@ export const TagContainer = styled.View`
 `;
 
 export const Description = styled.View`
-  padding: ${(props) => props.theme.space[4]} ${(props) => props.theme.space[4]}
-    0 0;
+  padding: 0 ${(props) => props.theme.space[4]} 0 0;
 `;
 
-export const DescriptionBody = styled.View`
-  margin: ${(props) => props.theme.space[2]} 0;
-`;
+export const DescriptionBody = styled.View``;
 
 export const ButtonContainer = styled.View`
   height: 10%;
@@ -80,4 +77,8 @@ export const LovedContainer = styled.TouchableOpacity`
   position: absolute;
   top: ${(props) => props.theme.space[2]};
   right: ${(props) => props.theme.space[2]};
+`;
+
+export const Overall = styled.View`
+  margin: 0 0 ${(props) => props.theme.space[4]} 0;
 `;

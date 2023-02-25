@@ -2,12 +2,13 @@ import * as React from "react";
 import styled from "styled-components/native";
 import { Text } from "./typography";
 
-const Tag: React.FC<{ text: string; selected?: boolean }> = ({
-  text = "carTag",
-  selected = false,
-}) => {
+const Tag: React.FC<{
+  text: string;
+  selected?: boolean;
+  onPress?: () => void;
+}> = ({ text = "carTag", selected = false, onPress }) => {
   return (
-    <TagContainer selected={selected}>
+    <TagContainer selected={selected} onPress={onPress && onPress}>
       <Text variant="caption">{text}</Text>
     </TagContainer>
   );

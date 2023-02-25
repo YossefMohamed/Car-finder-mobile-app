@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ScrollView } from "react-native";
 import { SvgXml } from "react-native-svg";
 import star from "../../../../assets/star";
@@ -15,6 +15,7 @@ import {
   Description,
   DescriptionBody,
   Details,
+  Overall,
   PriceCotnainer,
   RatingContainer,
   Row,
@@ -25,6 +26,7 @@ import {
 } from "./car.screen.styles";
 
 function CarScreen() {
+  const [overall, setOverall] = useState(false);
   return (
     <SafeArea>
       <ScrollView>
@@ -50,25 +52,39 @@ function CarScreen() {
             </UserContainer>
           </Row>
           <TagContainer>
-            <Tag text="Overall" selected />
-            <Tag text="Car" />
-            <Tag text="Location" />
-            <Tag text="Reviews" />
+            <Tag
+              text="Overall"
+              selected={overall}
+              onPress={() => setOverall(true)}
+            />
+            <Tag
+              text="Description"
+              selected={!overall}
+              onPress={() => setOverall(false)}
+            />
           </TagContainer>
-          <CarouselCards />
-          <Description>
-            <Text variant="title">DESCRIPTION :</Text>
-            <DescriptionBody>
-              <Text variant="paragraph">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia
-                dicta modi nostrum odit odio nemo neque vel officiis sit
-                similique voluptas enim qui veritatis error velit cum voluptate,
-                quisquam quibusdam?nostrum odit odio nemo neque vel officiis sit
-                similique voluptas enim qui veritatis error velit cum voluptate,
-                quisquam quibusdam?
-              </Text>
-            </DescriptionBody>
-          </Description>
+
+          {overall ? (
+            <Overall>
+              <CarouselCards />
+            </Overall>
+          ) : (
+            <Overall>
+              <Description>
+                <Text variant="title">DESCRIPTION :</Text>
+                <DescriptionBody>
+                  <Text variant="paragraph">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Quia dicta modi nostrum odit odio nemo neque vel officiis
+                    sit similique voluptas enim qui veritatis error velit cum
+                    voluptate, quisquam quibusdam?nostrum odit odio nemo neque
+                    vel officiis sit similique voluptas enim qui veritatis error
+                    velit cum voluptate, quisquam quibusdam?
+                  </Text>
+                </DescriptionBody>
+              </Description>
+            </Overall>
+          )}
         </Details>
       </ScrollView>
       <ButtonContainer>
@@ -76,7 +92,7 @@ function CarScreen() {
           <Text variant="title">$0.85</Text>
           <Text variant="caption">Per Kilo</Text>
         </PriceCotnainer>
-        <CustomButton text="Book Now" onPress={console.log} />
+        <CustomButton text="Contact seller" onPress={console.log} />
       </ButtonContainer>
     </SafeArea>
   );
