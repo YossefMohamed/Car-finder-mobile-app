@@ -7,6 +7,7 @@ import HomeScreen from "../../features/home/screens/home.screen";
 import CarsScreen from "../../features/cars/screens/cars.screen";
 import DrawerView from "../../components/DrawerView";
 import CarNavigation from "./car.navigation";
+import Favorite from "../../features/favorites/screens/favorite.screen";
 
 const Tab = createBottomTabNavigator();
 
@@ -58,7 +59,7 @@ export const AppBottomStack = () => (
       options={{ headerShown: false }}
     />
 
-    <Tab.Screen name="Favorites" component={CarsScreen} />
+    <Tab.Screen name="Favorites" component={Favorite} />
     <Tab.Screen name="Settings" component={Settings} />
   </Tab.Navigator>
 );
