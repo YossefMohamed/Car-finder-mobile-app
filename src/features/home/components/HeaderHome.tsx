@@ -15,7 +15,12 @@ function HeaderHome() {
         onPress={() => navigation.openDrawer()}
       />
       <IconContainer>
-        <Ionicons name={"person"} size={20} color={colors.brand.primary} />
+        <Ionicons
+          name={"person"}
+          size={20}
+          color={colors.brand.primary}
+          onPress={() => navigation.navigate("ProfileScreen")}
+        />
       </IconContainer>
     </HeaderContainer>
   );

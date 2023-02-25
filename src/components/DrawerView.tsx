@@ -17,7 +17,7 @@ export default function DrawerView() {
           color={colors.brand.dark}
           onPress={() => navigation.openDrawer()}
         />
-        <IconContainer>
+        <IconContainer onPress={() => navigation.navigate("ProfileScreen")}>
           <Ionicons name={"person"} size={20} color={colors.brand.primary} />
         </IconContainer>
       </HeaderContainer>
