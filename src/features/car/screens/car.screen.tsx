@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ScrollView } from "react-native";
+import { Dialog } from "react-native-paper";
 import { SvgXml } from "react-native-svg";
 import star from "../../../../assets/star";
 import CustomButton from "../../../components/button";
@@ -27,8 +28,11 @@ import {
 
 function CarScreen() {
   const [overall, setOverall] = useState(false);
+  const [visible, setVisible] = React.useState(false);
+
   return (
     <SafeArea>
+      <Dialog visibleProp={visible} />
       <ScrollView>
         <SwipperContainer>
           <CarScreenHeader />
@@ -92,7 +96,7 @@ function CarScreen() {
           <Text variant="title">$0.85</Text>
           <Text variant="caption">Per Kilo</Text>
         </PriceCotnainer>
-        <CustomButton text="Contact seller" onPress={console.log} />
+        <CustomButton text="Contact seller" onPress={()=>setVisible(true))} />
       </ButtonContainer>
     </SafeArea>
   );
