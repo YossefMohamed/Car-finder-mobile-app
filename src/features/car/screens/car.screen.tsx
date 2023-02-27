@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 import { SvgXml } from "react-native-svg";
 import star from "../../../../assets/star";
 import CustomButton from "../../../components/button";
@@ -9,9 +9,10 @@ import { SafeArea } from "../../../components/safeArea";
 import Tag from "../../../components/tag";
 import { Text } from "../../../components/typography";
 import CarScreenHeader from "../components/header";
+import Dialog from "react-native-dialog";
+
 import {
   ButtonContainer,
-  CarDetailsTitle,
   Description,
   DescriptionBody,
   Details,
@@ -24,12 +25,16 @@ import {
   UserContainer,
   UserImage,
 } from "./car.screen.styles";
+import DialogComponent from "../../../components/Dialog";
 
 function CarScreen() {
   const [overall, setOverall] = useState(false);
+  const [dialog, setDialog] = useState(false);
+
   return (
     <SafeArea>
       <ScrollView>
+        <DialogComponent visibleProp={dialog} />
         <SwipperContainer>
           <CarScreenHeader />
           <CarouselCars />
@@ -51,6 +56,7 @@ function CarScreen() {
               </Row>
             </UserContainer>
           </Row>
+
           <TagContainer>
             <Tag
               text="Overall"
@@ -92,7 +98,8 @@ function CarScreen() {
           <Text variant="title">$0.85</Text>
           <Text variant="caption">Per Kilo</Text>
         </PriceCotnainer>
-        <CustomButton text="Contact seller" onPress={console.log} />
+
+        <CustomButton text="Contact seller" onPress={() => setDialog(true)} />
       </ButtonContainer>
     </SafeArea>
   );

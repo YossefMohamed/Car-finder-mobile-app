@@ -1,32 +1,30 @@
-import * as React from "react";
+import React from "react";
 import { View } from "react-native";
-import { Button, Dialog, Portal, Provider, Text } from "react-native-paper";
-
-const Dialog = ({ visibleProp }: { visibleProp: boolean }) => {
-  const [visible, setVisible] = React.useState(visibleProp);
-
-  const showDialog = () => setVisible(true);
+import Dialog from "react-native-dialog";
+import * as Clipboard from "expo-clipboard";
+const DialogComponent = ({ visibleProp }: { visibleProp: boolean }) => {
+  const [visible, setVisible] = React.useState(true);
 
   const hideDialog = () => setVisible(false);
 
+  const copyText = async (text: string) => {
+    await Clipboard.setStringAsync("Hello World!");
+    alert("Copied to clipboard");
+    hideDialog();
+  };
   return (
-    <Provider>
-      <View>
-        <Button onPress={showDialog}>Show Dialog</Button>
-        <Portal>
-          <Dialog visible={visible} onDismiss={hideDialog}>
-            <Dialog.Title>Alert</Dialog.Title>
-            <Dialog.Content>
-              <Text variant="bodyMedium">This is simple dialog</Text>
-            </Dialog.Content>
-            <Dialog.Actions>
-              <Button onPress={hideDialog}>Done</Button>
-            </Dialog.Actions>
-          </Dialog>
-        </Portal>
-      </View>
-    </Provider>
+    <View>
+      <Dialog.Container visible={visible}>
+        <Dialog.Title>Contact the seller</Dialog.Title>
+        <Dialog.Description>
+          Do you want to contact the seller?
+        </Dialog.Description>
+        <Dialog.Button label="Copy" onPress={() => copyText("0123156487")} />
+        <Dialog.Button label="Call" onPress={console.log} />
+        <Dialog.Button label="Cancel" onPress={hideDialog} />
+      </Dialog.Container>
+    </View>
   );
 };
 
-export default Dialog;
+export default DialogComponent;

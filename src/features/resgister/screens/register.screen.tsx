@@ -12,10 +12,8 @@ import { Formik } from "formik";
 import { registerValidationSchema } from "../components/registerValidationSchema";
 
 function RegisterScreen() {
-  const [email, setEmail] = React.useState("");
-  const [name, setName] = React.useState("");
-  const [password, setPassword] = React.useState("");
   const navigation = useNavigation();
+
   return (
     <SafeArea>
       <ScrollView>
