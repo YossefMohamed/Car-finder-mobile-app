@@ -3,14 +3,14 @@ import { View, StyleSheet } from "react-native";
 import { Button, Snackbar } from "react-native-paper";
 
 const SnackBar = ({
-  visibleProp,
+  visible,
   message,
+  setVisible,
 }: {
-  visibleProp: boolean;
+  visible: boolean;
   message: string;
+  setVisible: (visible: boolean) => void;
 }) => {
-  const [visible, setVisible] = React.useState(visibleProp);
-
   const onDismissSnackBar = () => setVisible(false);
 
   return (

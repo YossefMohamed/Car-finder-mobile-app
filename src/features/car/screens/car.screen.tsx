@@ -25,6 +25,8 @@ import {
   UserImage,
 } from "./car.screen.styles";
 import DialogComponent from "../../../components/Dialog";
+import { Button } from "react-native-paper";
+import { colors } from "../../../infrastructure/theme/colors";
 
 function CarScreen() {
   const [overall, setOverall] = useState(false);
@@ -33,7 +35,7 @@ function CarScreen() {
   return (
     <SafeArea>
       <ScrollView>
-        <DialogComponent visibleProp={dialogAppear} />
+        <DialogComponent visible={dialogAppear} setVisible={setDialogAppear} />
         <SwipperContainer>
           <CarScreenHeader />
           <CarouselCars />
@@ -95,13 +97,12 @@ function CarScreen() {
       <ButtonContainer>
         <PriceCotnainer>
           <Text variant="title">$0.85</Text>
-          <Text variant="caption">Per Kilo</Text>
         </PriceCotnainer>
 
         <CustomButton
           text="Contact seller"
           onPress={() => {
-            setDialogAppear(true);
+            setDialogAppear((prev) => !prev);
           }}
         />
       </ButtonContainer>

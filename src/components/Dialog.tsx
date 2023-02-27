@@ -3,15 +3,23 @@ import { View } from "react-native";
 import Dialog from "react-native-dialog";
 import * as Clipboard from "expo-clipboard";
 import SnackBar from "./snackBar";
-const DialogComponent = ({ visibleProp }: { visibleProp: boolean }) => {
-  console.log(visibleProp);
-  const [visible, setVisible] = React.useState(visibleProp);
-  const hideDialog = () => setVisible(false);
+const DialogComponent = ({
+  visible = false,
 
+  setVisible,
+}: {
+  visible: boolean;
+  setVisible: (visible: boolean) => void;
+}) => {
+  const hideDialog = () => {
+    setVisible(false);
+  };
   const copyText = async (text: string) => {
     await Clipboard.setStringAsync(text);
     setVisible(false);
   };
+  console.log(visible, visible, "dialog");
+
   return (
     <View>
       <Dialog.Container visible={visible}>
