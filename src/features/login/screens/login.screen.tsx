@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/core";
 import React from "react";
 import { ScrollView, TextInput } from "react-native";
 import styled from "styled-components";
@@ -6,11 +7,11 @@ import CustomButton from "../../../components/button";
 import CustomTextInput from "../../../components/CustomTextInput";
 import { SafeArea } from "../../../components/safeArea";
 import { Text } from "../../../components/typography";
+import { Formik } from "formik";
+import { loginValidationSchema } from "../components/loginValidationSchema";
 
 function LoginScreen() {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-
+  const navigate = useNavigation();
   return (
     <SafeArea>
       <ScrollView>
@@ -20,32 +21,68 @@ function LoginScreen() {
           <CaptionContainer>
             <Text variant="caption">Sign in to start your journey</Text>
           </CaptionContainer>
-          <TextInputContainer>
-            <Text variant="caption">Email</Text>
 
-            <CustomTextInput
-              placeholder="Email"
-              value={email}
-              onChangeText={(text: string) => setEmail(text)}
-            />
-          </TextInputContainer>
-          <TextInputContainer>
-            <Text variant="caption">Password</Text>
-            <CustomTextInput
-              placeholder="Password"
-              secureTextEntry={true}
-              value={password}
-              onChangeText={(text: string) => setPassword(text)}
-            />
-          </TextInputContainer>
-          <ForgetPasswordContainer>
-            <Text variant="caption">Forget Password ?</Text>
-          </ForgetPasswordContainer>
-          <TextInputContainer>
-            <CustomButton text="Sign in" onPress={() => console.log("hi")} />
-          </TextInputContainer>
+          <Formik
+            validationSchema={loginValidationSchema}
+            initialValues={{ email: "", password: "" }}
+            onSubmit={(values) => console.log(values)}
+          >
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              isValid,
+            }) => (
+              <>
+                <TextInputContainer>
+                  <Text variant="caption">Email</Text>
+
+                  <CustomTextInput
+                    name="email"
+                    placeholder="Email Address"
+                    onChangeText={handleChange("email")}
+                    onBlur={handleBlur("email")}
+                    value={values.email}
+                    error={!!errors.email}
+                    keyboardType="email-address"
+                  />
+                </TextInputContainer>
+                {errors.email && <Text variant="error">{errors.email}</Text>}
+                <TextInputContainer>
+                  <Text variant="caption">Password</Text>
+                  <CustomTextInput
+                    name="password"
+                    placeholder="Password"
+                    onChangeText={handleChange("password")}
+                    onBlur={handleBlur("password")}
+                    value={values.password}
+                    secureTextEntry
+                    error={!!errors.email}
+                  />
+                </TextInputContainer>
+                {errors.password && (
+                  <Text variant="error">{errors.password}</Text>
+                )}
+                <ForgetPasswordContainer>
+                  <Text variant="caption">Forget Password ?</Text>
+                </ForgetPasswordContainer>
+                <TextInputContainer>
+                  <CustomButton text="Sign in" onPress={handleSubmit} />
+                </TextInputContainer>
+              </>
+            )}
+          </Formik>
+          <Center>
+            <Text variant="label">OR</Text>
+          </Center>
           <LinkContainer>
-            <Text variant="caption">New user sign up</Text>
+            <CustomButton
+              text="sign up"
+              link={true}
+              onPress={() => navigate.navigate("RegisterScreen")}
+            />
           </LinkContainer>
         </LoginContainer>
       </ScrollView>
@@ -66,6 +103,10 @@ const ImageContainer = styled.Image`
 const TextInputContainer = styled.View`
   margin: ${(props) => props.theme.space[1]} 0;
 `;
+const Center = styled.View`
+  justify-content: center;
+  align-items: center;
+`;
 
 const CustomScreenHeader = styled.Text`
   font-family: ${(props) => props.theme.fonts.heading};
@@ -85,9 +126,7 @@ const HeaderBold = styled.Text`
 `;
 
 const LinkContainer = styled.View`
-  margin: ${(props) => props.theme.space[4]} 0;
-  justify-content: center;
-  align-items: center;
+  margin: ${(props) => props.theme.space[3]} 0;
 `;
 
 const ForgetPasswordContainer = styled.View`

@@ -7,6 +7,7 @@ const CustomButton = ({
   link = false,
 }: {
   text: string;
+
   onPress: () => void;
   link?: boolean;
 }) => {
@@ -17,7 +18,9 @@ const CustomButton = ({
   );
 };
 
-const ButtonContainer = styled.TouchableOpacity<{ link: boolean }>`
+const ButtonContainer = styled.TouchableOpacity<{
+  link: boolean;
+}>`
   background: ${(props) =>
     props.link
       ? props.theme.colors.brand.dark

@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/core";
 import React from "react";
 import { ScrollView, TextInput } from "react-native";
 import styled from "styled-components";
@@ -7,60 +8,117 @@ import CustomTextInput from "../../../components/CustomTextInput";
 import { SafeArea } from "../../../components/safeArea";
 import { Spacer } from "../../../components/spacer";
 import { Text } from "../../../components/typography";
+import { Formik } from "formik";
+import { registerValidationSchema } from "../components/registerValidationSchema";
 
 function RegisterScreen() {
   const [email, setEmail] = React.useState("");
   const [name, setName] = React.useState("");
   const [password, setPassword] = React.useState("");
-
+  const navigation = useNavigation();
   return (
     <SafeArea>
       <ScrollView>
         <LoginContainer>
-          <ImageContainer source={images.login_image} resizeMode="contain" />
-          <CustomScreenHeader>Hello There Welcome </CustomScreenHeader>
-          <CaptionContainer>
-            <Text variant="caption">Sign up to start your journey</Text>
-          </CaptionContainer>
-          <TextInputContainer>
-            <Text variant="caption">Name</Text>
-            <CustomTextInput
-              placeholder="Name"
-              value={name}
-              onChangeText={(text: string) => setName(text)}
-            />
-          </TextInputContainer>
+          <Formik
+            validationSchema={registerValidationSchema}
+            initialValues={{
+              email: "",
+              password: "",
+              name: "",
+              passwordConfirmation: "",
+            }}
+            onSubmit={(values) => console.log(values)}
+          >
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              isValid,
+            }) => (
+              <>
+                <ImageContainer
+                  source={images.login_image}
+                  resizeMode="contain"
+                />
+                <CustomScreenHeader>Hello There Welcome </CustomScreenHeader>
+                <CaptionContainer>
+                  <Text variant="caption">Sign up to start your journey</Text>
+                </CaptionContainer>
+                <TextInputContainer>
+                  <Text variant="caption">Name</Text>
+                  <CustomTextInput
+                    name="name"
+                    placeholder="Your name"
+                    onChangeText={handleChange("name")}
+                    onBlur={handleBlur("name")}
+                    value={values.name}
+                    error={!!errors.name}
+                  />
+                  {errors.name && <Text variant="error">{errors.name}</Text>}
+                </TextInputContainer>
 
-          <TextInputContainer>
-            <Text variant="caption">Email</Text>
+                <TextInputContainer>
+                  <Text variant="caption">Email</Text>
 
-            <CustomTextInput
-              placeholder="Email"
-              value={email}
-              onChangeText={(text: string) => setEmail(text)}
-            />
-          </TextInputContainer>
-          <TextInputContainer>
-            <Text variant="caption">Password</Text>
-            <CustomTextInput
-              placeholder="Password"
-              secureTextEntry={true}
-              value={password}
-              onChangeText={(text: string) => setPassword(text)}
-            />
-          </TextInputContainer>
-          <ForgetPasswordContainer>
-            <Text variant="caption">Forget Password ?</Text>
-          </ForgetPasswordContainer>
-          <LinkContainer>
-            <CustomButton text="Sign in" onPress={() => console.log("hi")} />
-          </LinkContainer>
-          <Center>
-            <Text variant="label">OR</Text>
-          </Center>
-          <LinkContainer>
-            <CustomButton text="sign up" link={true} />
-          </LinkContainer>
+                  <CustomTextInput
+                    name="email"
+                    placeholder="Email Address"
+                    onChangeText={handleChange("email")}
+                    onBlur={handleBlur("email")}
+                    value={values.email}
+                    error={!!errors.email}
+                    keyboardType="email-address"
+                  />
+                  {errors.email && <Text variant="error">{errors.email}</Text>}
+                </TextInputContainer>
+                <TextInputContainer>
+                  <Text variant="caption">Password</Text>
+                  <CustomTextInput
+                    placeholder="Password"
+                    onChangeText={handleChange("password")}
+                    onBlur={handleBlur("password")}
+                    value={values.password}
+                    secureTextEntry
+                    error={!!errors.password}
+                  />
+                  {errors.password && (
+                    <Text variant="error">{errors.password}</Text>
+                  )}
+                </TextInputContainer>
+
+                <TextInputContainer>
+                  <Text variant="caption">Confirm password</Text>
+                  <CustomTextInput
+                    placeholder="Password confirm"
+                    onChangeText={handleChange("passwordConfirmation")}
+                    onBlur={handleBlur("passwordConfirmation")}
+                    value={values.passwordConfirmation}
+                    secureTextEntry
+                    error={!!errors.passwordConfirmation}
+                  />
+                  {errors.passwordConfirmation && (
+                    <Text variant="error">{errors.passwordConfirmation}</Text>
+                  )}
+                </TextInputContainer>
+                <LinkContainer>
+                  <CustomButton text="Sign up" onPress={handleSubmit} />
+                </LinkContainer>
+                <Center>
+                  <Text variant="label">OR</Text>
+                </Center>
+                <LinkContainer>
+                  <CustomButton
+                    text="sign in"
+                    link={true}
+                    onPress={() => navigation.navigate("LoginScreen")}
+                  />
+                </LinkContainer>
+              </>
+            )}
+          </Formik>
         </LoginContainer>
       </ScrollView>
     </SafeArea>
@@ -75,7 +133,6 @@ const LoginContainer = styled.View`
 const ImageContainer = styled.Image`
   width: 120px;
   height: 120px;
-  margin-left: ${(props) => props.theme.space[4]};
 `;
 
 const TextInputContainer = styled.View`
