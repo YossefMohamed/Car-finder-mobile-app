@@ -4,21 +4,16 @@ import Dialog from "react-native-dialog";
 import * as Clipboard from "expo-clipboard";
 import SnackBar from "./snackBar";
 const DialogComponent = ({ visibleProp }: { visibleProp: boolean }) => {
+  console.log(visibleProp);
   const [visible, setVisible] = React.useState(visibleProp);
-  const [snackBar, setSnackBar] = React.useState(false);
   const hideDialog = () => setVisible(false);
 
   const copyText = async (text: string) => {
     await Clipboard.setStringAsync(text);
-
-    hideDialog();
+    setVisible(false);
   };
   return (
     <View>
-      <SnackBar
-        message={"The number is copied to the clipboard "}
-        visibleProp={snackBar}
-      />
       <Dialog.Container visible={visible}>
         <Dialog.Title>Contact the seller</Dialog.Title>
         <Dialog.Description>
@@ -28,7 +23,6 @@ const DialogComponent = ({ visibleProp }: { visibleProp: boolean }) => {
           label="Copy"
           onPress={() => {
             copyText("0123156487");
-            setSnackBar(true);
           }}
         />
         <Dialog.Button label="Call" onPress={console.log} />

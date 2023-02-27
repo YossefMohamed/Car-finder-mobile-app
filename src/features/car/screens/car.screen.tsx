@@ -9,7 +9,6 @@ import { SafeArea } from "../../../components/safeArea";
 import Tag from "../../../components/tag";
 import { Text } from "../../../components/typography";
 import CarScreenHeader from "../components/header";
-import Dialog from "react-native-dialog";
 
 import {
   ButtonContainer,
@@ -29,12 +28,12 @@ import DialogComponent from "../../../components/Dialog";
 
 function CarScreen() {
   const [overall, setOverall] = useState(false);
-  const [dialog, setDialog] = useState(false);
+  const [dialogAppear, setDialogAppear] = useState(false);
 
   return (
     <SafeArea>
       <ScrollView>
-        <DialogComponent visibleProp={dialog} />
+        <DialogComponent visibleProp={dialogAppear} />
         <SwipperContainer>
           <CarScreenHeader />
           <CarouselCars />
@@ -99,7 +98,12 @@ function CarScreen() {
           <Text variant="caption">Per Kilo</Text>
         </PriceCotnainer>
 
-        <CustomButton text="Contact seller" onPress={() => setDialog(true)} />
+        <CustomButton
+          text="Contact seller"
+          onPress={() => {
+            setDialogAppear(true);
+          }}
+        />
       </ButtonContainer>
     </SafeArea>
   );
