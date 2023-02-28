@@ -1,6 +1,5 @@
 import * as React from "react";
-import { View, StyleSheet } from "react-native";
-import { Button, Snackbar } from "react-native-paper";
+import { Snackbar } from "react-native-paper";
 
 const SnackBar = ({
   visible,
@@ -26,12 +25,5 @@ const SnackBar = ({
     </Snackbar>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "space-between",
-  },
-});
 
 export default SnackBar;

@@ -25,17 +25,21 @@ import {
   UserImage,
 } from "./car.screen.styles";
 import DialogComponent from "../../../components/Dialog";
-import { Button } from "react-native-paper";
-import { colors } from "../../../infrastructure/theme/colors";
+import SnackBar from "../../../components/snackBar";
 
 function CarScreen() {
   const [overall, setOverall] = useState(false);
   const [dialogAppear, setDialogAppear] = useState(false);
+  const [snackBarVisible, setSnackBarVisible] = React.useState(false);
 
   return (
     <SafeArea>
       <ScrollView>
-        <DialogComponent visible={dialogAppear} setVisible={setDialogAppear} />
+        <DialogComponent
+          visible={dialogAppear}
+          setVisible={setDialogAppear}
+          action={() => setSnackBarVisible(true)}
+        />
         <SwipperContainer>
           <CarScreenHeader />
           <CarouselCars />
@@ -106,6 +110,12 @@ function CarScreen() {
           }}
         />
       </ButtonContainer>
+
+      <SnackBar
+        visible={snackBarVisible}
+        setVisible={setSnackBarVisible}
+        message="Copied to clipboard"
+      />
     </SafeArea>
   );
 }

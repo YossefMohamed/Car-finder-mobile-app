@@ -5,11 +5,12 @@ import * as Clipboard from "expo-clipboard";
 import SnackBar from "./snackBar";
 const DialogComponent = ({
   visible = false,
-
+  action,
   setVisible,
 }: {
   visible: boolean;
   setVisible: (visible: boolean) => void;
+  action: () => void;
 }) => {
   const hideDialog = () => {
     setVisible(false);
@@ -18,8 +19,6 @@ const DialogComponent = ({
     await Clipboard.setStringAsync(text);
     setVisible(false);
   };
-  console.log(visible, visible, "dialog");
-
   return (
     <View>
       <Dialog.Container visible={visible}>
@@ -31,6 +30,7 @@ const DialogComponent = ({
           label="Copy"
           onPress={() => {
             copyText("0123156487");
+            action();
           }}
         />
         <Dialog.Button label="Call" onPress={console.log} />
