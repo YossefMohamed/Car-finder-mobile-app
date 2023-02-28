@@ -2,7 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import Dialog from "react-native-dialog";
 import * as Clipboard from "expo-clipboard";
-import SnackBar from "./snackBar";
+import { Linking } from "react-native";
 const DialogComponent = ({
   visible = false,
   action,
@@ -33,7 +33,12 @@ const DialogComponent = ({
             action();
           }}
         />
-        <Dialog.Button label="Call" onPress={console.log} />
+        <Dialog.Button
+          label="Call"
+          onPress={() => {
+            Linking.openURL(`tel:0123156487`);
+          }}
+        />
         <Dialog.Button label="Cancel" onPress={hideDialog} />
       </Dialog.Container>
     </View>
