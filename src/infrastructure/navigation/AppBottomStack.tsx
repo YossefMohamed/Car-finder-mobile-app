@@ -4,7 +4,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { SafeArea } from "../../components/safeArea";
 import { Text } from "react-native-paper";
 import HomeScreen from "../../features/home/screens/home.screen";
-import CarsScreen from "../../features/cars/screens/cars.screen";
 import DrawerView from "../../components/DrawerView";
 import CarNavigation from "./car.navigation";
 import Favorite from "../../features/favorites/screens/favorite.screen";
@@ -40,12 +39,6 @@ const createScreenOptions = ({ route }: { route: { name: string } }) => {
   };
 };
 
-const Settings = () => (
-  <SafeArea>
-    <Text>awd</Text>
-  </SafeArea>
-);
-
 export const AppBottomStack = () => (
   <Tab.Navigator screenOptions={createScreenOptions}>
     <Tab.Screen
@@ -60,6 +53,5 @@ export const AppBottomStack = () => (
     />
 
     <Tab.Screen name="Favorites" component={Favorite} />
-    <Tab.Screen name="Settings" component={Settings} />
   </Tab.Navigator>
 );
