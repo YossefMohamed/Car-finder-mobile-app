@@ -1,5 +1,6 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { DrawerContent } from "../../components/drawerContent";
+import SellCar from "../../features/sellCar/screens/sellCar.screen";
 import { AppBottomStack } from "./AppBottomStack";
 import CarNavigation from "./car.navigation";
 import FilterDrawerContent from "./FilterDrawer";
@@ -18,6 +19,7 @@ function FilterDrawer() {
       }}
     >
       <DrawerStack.Screen name="Home" component={AppBottomStack} />
+      <DrawerStack.Screen name="SellCarScreen" component={SellCar} />
       <DrawerStack.Screen name="Cars" component={CarNavigation} />
     </DrawerStack.Navigator>
   );

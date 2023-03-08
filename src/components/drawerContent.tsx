@@ -89,11 +89,11 @@ export function DrawerContent(props: any) {
             />
             <DrawerItem
               icon={({ color, size }) => (
-                <Icon name="person" color={color} size={size} />
+                <Icon name="car-sharp" color={color} size={size} />
               )}
-              label="Support"
+              label="Sell a car"
               onPress={() => {
-                props.navigation.navigate("SupportScreen");
+                props.navigation.navigate("SellCarScreen");
               }}
             />
 

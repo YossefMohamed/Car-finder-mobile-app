@@ -9,10 +9,12 @@ function CustomTextInput({
   onChangeText,
   onBlur,
   keyboardType,
+  multiline,
   error,
 }: {
   name?: string;
   value: string;
+  multiline?: boolean;
   placeholder: string;
   secureTextEntry?: boolean;
   error?: boolean;
@@ -20,6 +22,7 @@ function CustomTextInput({
   onBlur?: any;
   keyboardType?: any;
 }) {
+  console.log(multiline);
   return (
     <CustomTextInputStyled
       onBlur={onBlur}
@@ -31,6 +34,8 @@ function CustomTextInput({
       hasValue={!!value}
       onChangeText={onChangeText}
       keyboardType={keyboardType}
+      multiline={multiline}
+      numberOfLines={multiline ? 3 : 1}
     />
   );
 }
@@ -40,6 +45,7 @@ export default CustomTextInput;
 const CustomTextInputStyled = styled.TextInput<{
   hasValue: boolean;
   error: boolean;
+  multiline: boolean;
 }>`
   padding: ${(props) => props.theme.space[2]};
   border-radius: ${(props) => props.theme.space[1]};
