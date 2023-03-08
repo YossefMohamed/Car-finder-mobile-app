@@ -8,11 +8,18 @@ import CustomButton from "../../../components/button";
 import ImageUploaderInput from "../../../components/ImageUploader";
 
 function SellCar() {
+  const [title, setTitle] = React.useState("");
+  const [description, setDescription] = React.useState("");
+  const [price, setPrice] = React.useState("");
+  const [images, setImages] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [error, setError] = React.useState("");
+
   return (
     <SafeArea>
       <SellCarHeader />
       <ScreenContainer>
-        <Text variant="title">Sell your Car </Text>
+        <Text variant="title">START SELLING</Text>
         <Text variant="body">
           start by selecting the car you want to sell and then fill in the
           details.

@@ -33,19 +33,26 @@ function ImageUploaderInput() {
           <Icon name="camera-sharp" size={24} color="white" />
         </IconContainer>
         <Text variant="caption">
-          {image.length ? "Add more Images" : "Upload Image"}
+          {image.length ? "Add An Image" : "Upload Image"}
         </Text>
       </ImageUploaderButton>
       <ImagePreviewerContainer>
-        {image.length &&
-          image.map((imageURI, idx) => (
-            <ImageUploaderImage
-              key={idx}
-              source={{
-                uri: imageURI,
-              }}
-            />
-          ))}
+        {image.length
+          ? image.map((imageURI, idx) => (
+              <ImageContainerItem key={idx}>
+                <CloseIconContainer
+                  onPress={() => setImage(image.filter((_, i) => i !== idx))}
+                >
+                  <Icon name="close-circle" size={24} color="white" />
+                </CloseIconContainer>
+                <ImageUploaderImage
+                  source={{
+                    uri: imageURI,
+                  }}
+                />
+              </ImageContainerItem>
+            ))
+          : null}
       </ImagePreviewerContainer>
     </ImageUploaderContainer>
   );
@@ -68,15 +75,30 @@ const IconContainer = styled.View`
   margin-right: ${(props) => props.theme.space[1]};
 `;
 const ImageUploaderImage = styled.Image`
-  border-radius: 4px;
-  width: 32%;
-  height: 125px;
-  margin: ${(props) => props.theme.space[1]} 0;
+  width: 100%;
+  height: 100%;
 `;
+
+const ImageContainerItem = styled.View`
+  width: 31%;
+  height: 125px;
+  align-items: center;
+  position: relative;
+
+  margin: ${(props) => props.theme.space[1]};
+`;
+
+const CloseIconContainer = styled.TouchableOpacity`
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 5;
+`;
+
 const ImagePreviewerContainer = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
   margin: ${(props) => props.theme.space[2]} 0;
-  justify-content: space-between;
 `;
+
 export default ImageUploaderInput;
