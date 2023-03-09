@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/core";
 import React from "react";
 import { ScrollView, TextInput } from "react-native";
 import styled from "styled-components";
-import images from "../../../../client/assets/Images";
+import images from "../../../../assets/Images";
 import CustomButton from "../../../components/button";
 import CustomTextInput from "../../../components/CustomTextInput";
 import { SafeArea } from "../../../components/safeArea";

@@ -3,7 +3,7 @@ import React from "react";
 import { View, Image } from "react-native";
 import { Text } from "react-native-paper";
 import styled from "styled-components";
-import images from "../../../../client/assets/Images";
+import images from "../../../../assets/Images";
 import CustomButton from "../../../components/button";
 import { SafeArea } from "../../../components/safeArea";
 import HeaderHome from "../components/HeaderHome";

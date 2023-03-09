@@ -3,7 +3,7 @@ import React from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 import { Avatar, Switch } from "react-native-paper";
 import styled from "styled-components";
-import images from "../../../../client/assets/Images";
+import images from "../../../../assets/Images";
 import CustomButton from "../../../components/button";
 import { SafeArea } from "../../../components/safeArea";
 import { Text } from "../../../components/typography";
