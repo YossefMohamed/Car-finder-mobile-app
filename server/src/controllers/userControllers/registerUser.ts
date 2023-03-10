@@ -1,5 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { signIn } from "../../middlewares/protect-routes";
+import {
+  refreshTokenGenerator,
+  signIn,
+} from "../../middlewares/protect-routes";
 import { hashPassword } from "../../services/passwordHashing";
 import prisma from "../../services/prismaClient";
 
@@ -29,12 +32,14 @@ export const registerUser = async (
     },
   });
   const token = signIn(user._id);
+  const refreshToken = refreshTokenGenerator();
 
   return res.status(201).json({
     status: "ok",
     data: {
-      user,
+      id: user.id,
       token,
+      refreshToken,
     },
   });
 };

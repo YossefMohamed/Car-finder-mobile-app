@@ -13,6 +13,7 @@ import { Prisma } from "@prisma/client";
 import prisma from "./services/prismaClient";
 import mainRouter from "./routes";
 import { NotFoundError } from "./errors/not-found-error";
+import logger from "./services/logger";
 const app = express();
 const corsOptions = { credentials: true, origin: "http://localhost:3000" };
 app.use(express.static(path.join(__dirname, "../public")));
@@ -42,5 +43,5 @@ const port = process.env.PORT || 3000;
 
 const server = createServer(app);
 server.listen(port, async () => {
-  console.log("Server is running on port " + port);
+  logger.info("Server is running on port " + port);
 });

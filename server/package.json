@@ -45,6 +45,7 @@
     "mongoose": "^6.9.0",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
+    "pino": "^8.11.0",
     "sharp": "^0.31.3",
     "supertest": "^6.3.2",
     "swagger-jsdoc": "^6.2.5",

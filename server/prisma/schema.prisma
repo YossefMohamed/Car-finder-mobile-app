@@ -11,6 +11,8 @@ datasource db {
 }
 
 model User {
+  @@map(name: "users")
+
   id           Int      @id @default(autoincrement())
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
@@ -19,9 +21,13 @@ model User {
   email        String   @unique
   profileImage String?  @default("default.png")
   password      String
+  @@index([email])
+
 }
 
 model Car {
+  @@map(name: "cars")
+
   id          Int       @id @default(autoincrement())
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
@@ -30,16 +36,24 @@ model Car {
   userId      Int
   Category    Category? @relation(fields: [categoryId], references: [id])
   categoryId  Int?
+  @@index([categoryId])
+
 }
 
 model Category {
+  @@map(name: "categories")
+
   id       Int    @id @default(autoincrement())
   Category String
   cars     Car[]
 }
 
 model Favorite {
+  @@map(name: "favorites")
+  
   userId Int
   carId  Int
   id     Int @id @default(autoincrement())
 }
+
+ 

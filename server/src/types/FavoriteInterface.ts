@@ -1,4 +1,4 @@
-export type Favorite = {
+export type IFavorite = {
   userId: number;
   carId: number;
   id: number;

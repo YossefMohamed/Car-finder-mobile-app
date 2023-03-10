@@ -2,18 +2,24 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { Types } from "mongoose";
 import prisma from "../services/prismaClient";
-import { User } from "../types/UserInterface";
+import { IUser } from "../types/UserInterface";
 
 declare global {
   namespace Express {
     interface Request {
-      user: User;
+      user: IUser;
     }
   }
 }
 
 export const signIn = (id: Number) => {
   return jwt.sign({ id }, process.env.JWT_SECRET || "randomSecret", {
+    expiresIn: "20m",
+  });
+};
+
+export const refreshTokenGenerator = () => {
+  return jwt.sign({}, process.env.JWT_PRIVET_SECRET || "randomPrivetSecret", {
     expiresIn: "30d",
   });
 };
@@ -50,6 +56,6 @@ export const protect = async (req: any, res: Response, next: any) => {
     req.user = freshUser;
     next();
   } catch (error) {
-    next(error);
+    next(new Error("Please Login Again !"));
   }
 };

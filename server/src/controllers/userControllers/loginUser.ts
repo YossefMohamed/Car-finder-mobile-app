@@ -1,8 +1,12 @@
 import { Response, Request, NextFunction } from "express";
-import { signIn } from "../../middlewares/protect-routes";
+import {
+  refreshTokenGenerator,
+  signIn,
+} from "../../middlewares/protect-routes";
+import logger from "../../services/logger";
 import { comparePassword } from "../../services/passwordHashing";
 import prisma from "../../services/prismaClient";
-import { User } from "../../types/UserInterface";
+import { IUser } from "../../types/UserInterface";
 
 export const login = async (
   req: Request,
@@ -13,23 +17,25 @@ export const login = async (
   if (!email || !password) {
     return next(new Error("invalid email or password"));
   }
-  const user: User | null = await prisma.user.findUnique({
+  const user: IUser | null = await prisma.user.findUnique({
     where: { email },
   });
   if (user && (await comparePassword(password, user.password))) {
     const token = signIn(user.id);
-
-    console.log({
+    const refreshToken = refreshTokenGenerator();
+    logger.warn({
       data: {
-        user,
+        id: user.id,
         token,
+        refreshToken,
       },
     });
     return res.status(201).json({
       status: "ok",
       data: {
-        user,
+        id: user.id,
         token,
+        refreshToken,
       },
     });
   }

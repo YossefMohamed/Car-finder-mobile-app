@@ -1,4 +1,4 @@
-export type Car = {
+export type ICar = {
   id: number;
   createdAt: Date;
   updatedAt: Date;
