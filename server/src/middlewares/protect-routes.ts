@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { Types } from "mongoose";
 import prisma from "../services/prismaClient";
 import { IUser } from "../types/UserInterface";
 
@@ -18,10 +17,14 @@ export const signIn = (id: Number) => {
   });
 };
 
-export const refreshTokenGenerator = () => {
-  return jwt.sign({}, process.env.JWT_PRIVET_SECRET || "randomPrivetSecret", {
-    expiresIn: "30d",
-  });
+export const refreshTokenGenerator = (id: Number) => {
+  return jwt.sign(
+    { id },
+    process.env.JWT_PRIVET_SECRET || "randomPrivetSecret",
+    {
+      expiresIn: "30d",
+    }
+  );
 };
 
 export const protect = async (req: any, res: Response, next: any) => {
@@ -57,5 +60,30 @@ export const protect = async (req: any, res: Response, next: any) => {
     next();
   } catch (error) {
     next(new Error("Please Login Again !"));
+  }
+};
+
+export const checkRefreshToken = async (req: Request) => {
+  try {
+    let token;
+    if (
+      req.headers.authorization &&
+      req.headers.authorization.startsWith("Bearer")
+    ) {
+      token = req.headers.authorization.split(" ")[1];
+    }
+    if (!token) {
+      return new Error("PLease Login !");
+    }
+
+    // 2- validate token
+    const isValid: any = jwt.verify(
+      token,
+      process.env.JWT_PRIVET_SECRET || "randomSecret"
+    );
+
+    return isValid.id;
+  } catch (error) {
+    return new Error("Please Login Again !");
   }
 };

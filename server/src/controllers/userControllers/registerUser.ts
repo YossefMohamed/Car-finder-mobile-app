@@ -32,7 +32,7 @@ export const registerUser = async (
     },
   });
   const token = signIn(user._id);
-  const refreshToken = refreshTokenGenerator();
+  const refreshToken = refreshTokenGenerator(user._id);
 
   return res.status(201).json({
     status: "ok",

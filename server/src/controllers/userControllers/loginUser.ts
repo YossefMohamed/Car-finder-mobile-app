@@ -22,7 +22,7 @@ export const login = async (
   });
   if (user && (await comparePassword(password, user.password))) {
     const token = signIn(user.id);
-    const refreshToken = refreshTokenGenerator();
+    const refreshToken = refreshTokenGenerator(user.id);
     logger.warn({
       data: {
         id: user.id,
