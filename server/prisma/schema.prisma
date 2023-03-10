@@ -21,6 +21,8 @@ model User {
   email        String   @unique
   profileImage String?  @default("default.png")
   password      String
+  favorites     Favorite[]
+
   @@index([email])
 
 }
@@ -37,6 +39,7 @@ model Car {
   userId      Int
   Category    Category? @relation(fields: [categoryId], references: [id])
   categoryId  Int?
+  favorites    Favorite[]
 
   @@index([categoryId])
 
@@ -46,14 +49,15 @@ model Category {
   @@map(name: "categories")
 
   id       Int    @id @default(autoincrement())
-  category String
+  category String @unique
   cars     Car[]
 }
 
 model Favorite {
   @@map(name: "favorites")
-  
+  User    User? @relation(fields: [userId], references: [id])
   userId Int
+  Car    Car? @relation(fields: [carId], references: [id])
   carId  Int
   id     Int @id @default(autoincrement())
 }

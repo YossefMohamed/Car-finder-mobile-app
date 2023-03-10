@@ -1,3 +1,5 @@
+import { IFavorite } from "./FavoriteInterface";
+
 export type IUser = {
   id: number;
   createdAt: Date;
@@ -7,4 +9,5 @@ export type IUser = {
   email: string;
   profileImage: string | null;
   password: string;
+  favorites?: IFavorite[] | undefined;
 };
