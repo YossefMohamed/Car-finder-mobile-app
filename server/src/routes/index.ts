@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { protect } from "../middlewares/protect-routes";
+import { createCarRouter } from "./carRoutes/createCar";
 import { deleteUserRouter } from "./userRoutes/deleteUser";
 import { editUserRouter } from "./userRoutes/editUser";
 import { getCurrentUserRouter } from "./userRoutes/getCurrentUser";
@@ -18,5 +19,7 @@ mainRouter.use("/users", protect, editUserRouter);
 mainRouter.use("/users", protect, deleteUserRouter);
 mainRouter.use("/users", protect, getCurrentUserRouter);
 mainRouter.use("/users", refreshTokenRouter);
+
+mainRouter.use("/cars", protect, createCarRouter);
 
 export default mainRouter;
