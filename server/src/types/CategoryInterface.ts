@@ -1,4 +1,7 @@
+import { ICar } from "./CarInterface";
+
 export type ICategory = {
   id: number;
-  Category: string;
+  category: string;
+  cars?: ICar[] | undefined;
 };

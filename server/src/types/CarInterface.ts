@@ -3,6 +3,7 @@ export type ICar = {
   createdAt: Date;
   updatedAt: Date;
   title: string;
+  price: number;
   description: string;
   userId: number;
   categoryId: number | null;
