@@ -1,25 +1,15 @@
 import { Router } from "express";
-import { protect } from "../middlewares/protect-routes";
-import { createCarRouter } from "./carRoutes/createCar";
-import { deleteUserRouter } from "./userRoutes/deleteUser";
-import { editUserRouter } from "./userRoutes/editUser";
-import { getCurrentUserRouter } from "./userRoutes/getCurrentUser";
-import { getUserRouter } from "./userRoutes/getUser";
-import { loginUserRouter } from "./userRoutes/loginUser";
-import { refreshTokenRouter } from "./userRoutes/refreshToken";
-import { registerUserRouter } from "./userRoutes/registerUser";
+import { carRouter } from "./carRoutes";
+import { categoryRouter } from "./categoryRoutes";
+import { favoriteRouter } from "./favoriteRoutes";
+
+import { userRouter } from "./userRoutes";
 
 const mainRouter = Router();
 
-mainRouter.use("/users", getUserRouter);
-mainRouter.use("/users", loginUserRouter);
-mainRouter.use("/users", registerUserRouter);
-mainRouter.use("/users", protect, editUserRouter);
-mainRouter.use("/users", protect, editUserRouter);
-mainRouter.use("/users", protect, deleteUserRouter);
-mainRouter.use("/users", protect, getCurrentUserRouter);
-mainRouter.use("/users", refreshTokenRouter);
-
-mainRouter.use("/cars", protect, createCarRouter);
+mainRouter.use("/users/", userRouter);
+mainRouter.use("/cars/", carRouter);
+mainRouter.use("/category/", categoryRouter);
+mainRouter.use("/favorites/", favoriteRouter);
 
 export default mainRouter;

@@ -2,20 +2,18 @@ import { NextFunction, Request, Response } from "express";
 import prisma from "../../services/prismaClient";
 import { ICategory } from "../../types/CategoryInterface";
 
-export const createCategory = async (
+export const getCategories = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const { category } = req.body as ICategory;
-  const newCategory: ICategory = await prisma.category.create({
-    data: {
-      category,
+  const categories: ICategory[] = await prisma.category.findMany({
+    include: {
+      cars: true,
     },
   });
-
   res.status(200).json({
     status: "ok",
-    data: newCategory,
+    data: categories,
   });
 };

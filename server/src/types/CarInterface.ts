@@ -1,4 +1,8 @@
-export type ICar = {
+import { Prisma } from "@prisma/client";
+import { ICategory } from "./CategoryInterface";
+import { IUser } from "./UserInterface";
+
+export interface ICar {
   id: number;
   createdAt: Date;
   updatedAt: Date;
@@ -7,4 +11,7 @@ export type ICar = {
   description: string;
   userId: number;
   categoryId: number | null;
-};
+  Category?: ICategory[] | undefined;
+  User?: IUser[] | undefined;
+  BatchPayload: Prisma.BatchPayload;
+}

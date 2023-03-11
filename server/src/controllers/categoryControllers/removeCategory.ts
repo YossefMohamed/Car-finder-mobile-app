@@ -2,20 +2,19 @@ import { NextFunction, Request, Response } from "express";
 import prisma from "../../services/prismaClient";
 import { ICategory } from "../../types/CategoryInterface";
 
-export const createCategory = async (
+export const removeCategory = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const { category } = req.body as ICategory;
-  const newCategory: ICategory = await prisma.category.create({
-    data: {
+  const { category } = req.params;
+  const deletedCategory: ICategory = await prisma.category.delete({
+    where: {
       category,
     },
   });
-
   res.status(200).json({
     status: "ok",
-    data: newCategory,
+    data: deletedCategory,
   });
 };
