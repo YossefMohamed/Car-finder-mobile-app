@@ -19,24 +19,24 @@ model User {
   firstName    String   
   lastName     String   
   email        String   @unique
-  profileImage String?  @default("default.png")
   password      String
   favorites     Favorite[]
   phoneNumber String?
   role      String     @default("user") 
-
+  profileImage Image?
   cars Car[]
   @@index([email])
 
 }
 
 
-model CarImage {
+model Image {
   name String
   id           String      @id  @default(uuid())
   Car    Car? @relation(fields: [carId], references: [id])
-  carId  String
-
+  carId  String?
+  user   User? @relation(fields: [userId], references: [id])
+  userId String? @unique
 }
 
 
@@ -54,7 +54,7 @@ model Car {
   User    User? @relation(fields: [userId], references: [id])
   categoryId  String
   favorites    Favorite[]
-  images    CarImage[]
+  images    Image[]
 
   @@index([categoryId])
 

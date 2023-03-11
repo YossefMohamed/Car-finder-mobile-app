@@ -16,7 +16,7 @@ import { NotFoundError } from "./errors/not-found-error";
 import logger from "./services/logger";
 const app = express();
 const corsOptions = { credentials: true, origin: "http://localhost:3000" };
-app.use(express.static(path.join(__dirname, "../public")));
+app.use(express.static(path.join(__dirname, "../upload")));
 
 app.use(cors(corsOptions));
 const router = express.Router();

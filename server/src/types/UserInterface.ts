@@ -7,7 +7,7 @@ export type IUser = {
   firstName: string;
   lastName: string;
   email: string;
-  profileImage: string | null;
+  profileImage?: any;
   password: string;
   favorites?: IFavorite[] | undefined;
   role: string;

@@ -9,6 +9,9 @@ export const createCategory = async (
   next: NextFunction
 ) => {
   const { category } = req.body as ICategory;
+  console.log("====================================");
+  console.log(req.user);
+  console.log("====================================");
   if (req.user.role !== "admin") return next(new NotAuthorizedError());
   const newCategory: ICategory = await prisma.category.create({
     data: {

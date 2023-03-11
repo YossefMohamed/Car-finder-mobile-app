@@ -8,6 +8,9 @@ const getUser = async (req: Request, res: Response, next: NextFunction) => {
     where: {
       id,
     },
+    include: {
+      profileImage: true,
+    },
   });
   return res.status(200).json({
     status: "ok",

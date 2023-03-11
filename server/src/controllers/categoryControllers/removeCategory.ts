@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { NotAuthorizedError } from "../../errors/not-authorized-error";
 import prisma from "../../services/prismaClient";
 import { ICategory } from "../../types/CategoryInterface";
 
@@ -8,6 +9,7 @@ export const removeCategory = async (
   next: NextFunction
 ) => {
   const { category } = req.params;
+  if (req.user.role !== "admin") return next(new NotAuthorizedError());
   const deletedCategory: ICategory = await prisma.category.delete({
     where: {
       category,

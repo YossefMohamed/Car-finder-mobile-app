@@ -5,10 +5,11 @@ import { getCars } from "../../controllers/carControllers/getCars";
 import { getCar } from "../../controllers/carControllers/getCar";
 import { protect } from "../../middlewares/protect-routes";
 import { deleteCar } from "../../controllers/carControllers/deleteCar";
+import { upload } from "../../middlewares/image-upload";
 
 const mainRouter = Router();
 
-mainRouter.post("/", protect, createCar);
+mainRouter.post("/", protect, upload.array("image", 6), createCar);
 mainRouter.get("/", getCars);
 mainRouter.patch("/:id", protect, editCar);
 mainRouter.get("/:id", getCar);

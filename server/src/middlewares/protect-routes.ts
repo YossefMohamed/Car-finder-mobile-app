@@ -50,6 +50,9 @@ export const protect = async (req: any, res: Response, next: any) => {
       where: {
         id: login.id,
       },
+      include: {
+        profileImage: true,
+      },
     });
 
     if (!freshUser) {
