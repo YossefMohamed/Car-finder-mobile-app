@@ -2,9 +2,9 @@ import { ICar } from "./CarInterface";
 import { IUser } from "./UserInterface";
 
 export type IFavorite = {
-  userId: number;
-  carId: number;
-  id: number;
+  userId: string;
+  carId: string;
+  id: string;
   cars?: ICar[] | undefined;
   users?: IUser[] | undefined;
 };

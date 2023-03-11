@@ -5,7 +5,7 @@ import { IFavorite } from "../../types/FavoriteInterface";
 export const removeFromFavorite = async (req: Request, res: Response) => {
   const { id } = req.params;
   const deletedFavorite: IFavorite = await prisma.favorite.delete({
-    where: { id: Number(id) },
+    where: { id },
   });
 
   res.status(200).json({

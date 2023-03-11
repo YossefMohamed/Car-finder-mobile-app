@@ -13,7 +13,7 @@ datasource db {
 model User {
   @@map(name: "users")
 
-  id           Int      @id @default(autoincrement())
+  id           String      @id  @default(uuid())
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   firstName    String   
@@ -23,25 +23,38 @@ model User {
   password      String
   favorites     Favorite[]
   phoneNumber String?
+  role      String     @default("user") 
+
   cars Car[]
   @@index([email])
 
 }
 
+
+model CarImage {
+  name String
+  id           String      @id  @default(uuid())
+  Car    Car? @relation(fields: [carId], references: [id])
+  carId  String
+
+}
+
+
 model Car {
   @@map(name: "cars")
 
-  id          Int       @id @default(autoincrement())
+  id           String      @id  @default(uuid())
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   title       String
   price       Float
   description String
-  userId      Int
+  userId      String
   Category    Category? @relation(fields: [categoryId], references: [id])
   User    User? @relation(fields: [userId], references: [id])
-  categoryId  Int?
+  categoryId  String
   favorites    Favorite[]
+  images    CarImage[]
 
   @@index([categoryId])
 
@@ -50,7 +63,7 @@ model Car {
 model Category {
   @@map(name: "categories")
 
-  id       Int    @id @default(autoincrement())
+  id           String      @id  @default(uuid())
   category String @unique
   cars     Car[]
 }
@@ -58,10 +71,10 @@ model Category {
 model Favorite {
   @@map(name: "favorites")
   User    User? @relation(fields: [userId], references: [id])
-  userId Int
+  userId String
   Car    Car? @relation(fields: [carId], references: [id])
-  carId  Int
-  id     Int @id @default(autoincrement())
+  carId  String
+  id           String      @id  @default(uuid())
 }
 
  

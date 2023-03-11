@@ -11,13 +11,13 @@ declare global {
   }
 }
 
-export const signIn = (id: Number) => {
+export const signIn = (id: string | number) => {
   return jwt.sign({ id }, process.env.JWT_SECRET || "randomSecret", {
     expiresIn: "20m",
   });
 };
 
-export const refreshTokenGenerator = (id: Number) => {
+export const refreshTokenGenerator = (id: string | number) => {
   return jwt.sign(
     { id },
     process.env.JWT_PRIVET_SECRET || "randomPrivetSecret",

@@ -11,7 +11,7 @@ export const addToFavorite = async (
   const newFavorite: IFavorite = await prisma.favorite.create({
     data: {
       userId: req.user.id,
-      carId: Number(id),
+      carId: id,
     },
   });
   res.status(200).json({

@@ -6,7 +6,7 @@ const getUser = async (req: Request, res: Response, next: NextFunction) => {
 
   const user = await prisma.user.findFirst({
     where: {
-      id: Number(id),
+      id,
     },
   });
   return res.status(200).json({

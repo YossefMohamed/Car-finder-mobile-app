@@ -7,10 +7,12 @@ const editUser = async (req: Request, res: Response, next: NextFunction) => {
     lastName,
     firstName,
     email,
+    role,
   }: {
     lastName: string | undefined;
     firstName: string | undefined;
     email: string | undefined;
+    role: string | undefined;
   } = req.body;
 
   const user: IUser = await prisma.user.update({
@@ -21,6 +23,7 @@ const editUser = async (req: Request, res: Response, next: NextFunction) => {
       lastName: lastName || req.user.lastName,
       firstName: firstName || req.user.firstName,
       email: email || req.user.email,
+      role: role || req.user.role,
     },
   });
 

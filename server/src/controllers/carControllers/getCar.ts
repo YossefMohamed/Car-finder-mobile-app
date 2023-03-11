@@ -6,7 +6,7 @@ export const getCar = async (req: Request, res: Response) => {
   const { id } = req.params;
   const car: ICar | null = await prisma.car.findUnique({
     where: {
-      id: Number(id),
+      id,
     },
   });
   res.status(200).json({
