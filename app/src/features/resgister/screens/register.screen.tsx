@@ -10,9 +10,28 @@ import { Spacer } from "../../../components/spacer";
 import { Text } from "../../../components/typography";
 import { Formik } from "formik";
 import { registerValidationSchema } from "../components/registerValidationSchema";
+import { useMutation } from "react-query";
+import Users from "../../../api/UsersEndpoint";
+import { AxiosError } from "axios";
 
 function RegisterScreen() {
   const navigation = useNavigation();
+
+  const {
+    isLoading,
+    mutate,
+    error: registerError,
+  }: { isLoading: boolean; mutate: any; error: any } = useMutation(
+    (data: any) => {
+      return Users.userLogin(data);
+    },
+    {
+      onSuccess: () => navigation.navigate("LoginScreen"),
+    }
+  );
+  console.log("error");
+  console.log(registerError.error);
+  console.log("error");
 
   return (
     <SafeArea>
@@ -23,10 +42,13 @@ function RegisterScreen() {
             initialValues={{
               email: "",
               password: "",
-              name: "",
+              lastName: "",
+              firstName: "",
               passwordConfirmation: "",
             }}
-            onSubmit={(values) => console.log(values)}
+            onSubmit={(values) => {
+              mutate(values);
+            }}
           >
             {({
               handleChange,
@@ -45,19 +67,44 @@ function RegisterScreen() {
                 <CaptionContainer>
                   <Text variant="caption">Sign up to start your journey</Text>
                 </CaptionContainer>
-                <TextInputContainer>
-                  <Text variant="caption">Name</Text>
-                  <CustomTextInput
-                    name="name"
-                    placeholder="Your name"
-                    onChangeText={handleChange("name")}
-                    onBlur={handleBlur("name")}
-                    value={values.name}
-                    error={!!errors.name}
-                  />
-                  {errors.name && <Text variant="error">{errors.name}</Text>}
-                </TextInputContainer>
+                <ErrorContainer>
+                  {registerError.error.map(
+                    ({ message, idx }: { message: string; idx: number }) => (
+                      <Text variant="error" key={idx}>
+                        {message}
+                      </Text>
+                    )
+                  )}
+                </ErrorContainer>
 
+                <TextInputContainer>
+                  <Text variant="caption">First name</Text>
+                  <CustomTextInput
+                    name="firstName"
+                    placeholder="Your first name"
+                    onChangeText={handleChange("firstName")}
+                    onBlur={handleBlur("firstName")}
+                    value={values.firstName}
+                    error={!!errors.firstName}
+                  />
+                  {errors.firstName && (
+                    <Text variant="error">{errors.firstName}</Text>
+                  )}
+                </TextInputContainer>
+                <TextInputContainer>
+                  <Text variant="caption">Last name</Text>
+                  <CustomTextInput
+                    name="lastName"
+                    placeholder="Your last name"
+                    onChangeText={handleChange("lastName")}
+                    onBlur={handleBlur("lastName")}
+                    value={values.lastName}
+                    error={!!errors.lastName}
+                  />
+                  {errors.lastName && (
+                    <Text variant="error">{errors.lastName}</Text>
+                  )}
+                </TextInputContainer>
                 <TextInputContainer>
                   <Text variant="caption">Email</Text>
 
@@ -145,7 +192,7 @@ const CustomScreenHeader = styled.Text`
 
 const CaptionContainer = styled.View`
   margin: ${(props) => props.theme.space[3]} 0
-    ${(props) => props.theme.space[4]};
+    ${(props) => props.theme.space[2]};
 `;
 const HeaderBold = styled.Text`
   color: ${(props) => props.theme.colors.brand.primary};
@@ -168,6 +215,10 @@ const ForgetPasswordContainer = styled.View`
 const Center = styled.View`
   justify-content: center;
   align-items: center;
+`;
+
+const ErrorContainer = styled.View`
+  padding: 0 0 ${(props) => props.theme.space[2]} 0;
 `;
 
 export default RegisterScreen;

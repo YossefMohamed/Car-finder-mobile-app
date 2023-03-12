@@ -16,6 +16,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "./src/features/login/screens/login.screen";
 import LoginHeader from "./src/components/headerLogin";
 import ProfileScreen from "./src/features/profile/screens/profile.screen";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { QueryClient, QueryClientProvider } from "react-query";
+import axios from "axios";
 
 const MainStack = createStackNavigator();
 
@@ -30,9 +33,17 @@ export default function App() {
   if (!oswaldLoaded || !LatoLoaded) {
     return null;
   }
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        retry: false,
+      },
+    },
+  });
 
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <NavigationContainer>
           <MainStack.Navigator
@@ -58,7 +69,7 @@ export default function App() {
         </NavigationContainer>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
-    </>
+    </QueryClientProvider>
   );
 }
 

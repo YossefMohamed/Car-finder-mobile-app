@@ -29,10 +29,12 @@ const createScreenOptions = ({ route }: { route: { name: string } }) => {
       backgroundColor: colors.brand.dark,
       borderTopWidth: 0,
     },
+
     tabBarItemStyle: {
       backgroundColor: colors.brand.dark,
       margin: 5,
     },
+
     header({ navigation }) {
       return <DrawerView />;
     },
@@ -44,14 +46,61 @@ export const AppBottomStack = () => (
     <Tab.Screen
       name="Home"
       component={HomeScreen}
-      options={{ headerShown: false }}
+      options={{
+        headerShown: false,
+
+        tabBarLabel: ({ focused }) => {
+          return focused ? (
+            <Text
+              style={{
+                color: focused ? colors.tabs.primary : colors.tabs.secondary,
+                fontSize: 12,
+              }}
+            >
+              Home
+            </Text>
+          ) : null;
+        },
+      }}
     />
     <Tab.Screen
       name="Cars"
       component={CarNavigation}
-      options={{ headerShown: false }}
+      options={{
+        headerShown: false,
+
+        tabBarLabel: ({ focused }) => {
+          return focused ? (
+            <Text
+              style={{
+                color: focused ? colors.tabs.primary : colors.tabs.secondary,
+                fontSize: 12,
+              }}
+            >
+              Home
+            </Text>
+          ) : null;
+        },
+      }}
     />
 
-    <Tab.Screen name="Favorites" component={Favorite} />
+    <Tab.Screen
+      name="Favorites"
+      component={Favorite}
+      options={{
+        tabBarLabel: ({ focused }) => {
+          return focused ? (
+            <Text
+              style={{
+                color: focused ? colors.tabs.primary : colors.tabs.secondary,
+                fontSize: 12,
+              }}
+            >
+              Home
+            </Text>
+          ) : null;
+        },
+      }}
+    />
   </Tab.Navigator>
 );

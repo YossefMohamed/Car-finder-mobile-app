@@ -18,8 +18,11 @@ import Tag from "../../../components/tag";
 import CarsInfoCard from "../components/cars-info-card/cars-info-card";
 import ScreenHeader from "../components/screen-header";
 import SearchComponent from "../components/search-component";
+import { useQuery } from "react-query";
+import Categories from "../../../api/CategoriesEndpoints";
+import LoadingSpinner from "../../../components/loadingSpinner";
 
-const ListHeader = ({ onChangeSearch, searchQuery }: any) => (
+const ListHeader = ({ onChangeSearch, searchQuery, categories }: any) => (
   <>
     <ScreenHeader />
 
@@ -28,8 +31,8 @@ const ListHeader = ({ onChangeSearch, searchQuery }: any) => (
       searchQuery={searchQuery}
     />
     <TagContainer>
-      {tags.map((tag) => (
-        <Tag text={tag} />
+      {categories.map((category: any, idx: number) => (
+        <Tag text={category.title} key={idx} />
       ))}
     </TagContainer>
     <Section>
@@ -39,7 +42,7 @@ const ListHeader = ({ onChangeSearch, searchQuery }: any) => (
   </>
 );
 
-const data = [
+const carData = [
   {
     name: "Peugeot",
     icon: "S",
@@ -125,19 +128,26 @@ const tags = [
 const CarsScreen = () => {
   const [searchQuery, setSearchQuery] = React.useState("");
   const onChangeSearch = (text: string) => setSearchQuery(text);
-
+  const { data: categories, isLoading } = useQuery(["categories"], () =>
+    Categories.getCategories()
+  );
+  console.log(isLoading, categories);
   return (
-    <SafeArea>
-      <ListContainer>
-        <ListHeader />
-
-        <CarsList
-          data={data}
-          renderItem={({ item }) => <CarsInfoCard {...item} />}
-          keyExtractor={(item, index: number) => `${index}`}
-        />
-      </ListContainer>
-    </SafeArea>
+    <>
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
+        <SafeArea>
+          {isLoading}
+          <CarsList
+            data={carData}
+            renderItem={({ item }) => <CarsInfoCard {...item} />}
+            keyExtractor={(item, index: number) => `${index}`}
+            ListHeaderComponent={<ListHeader categories={categories} />}
+          />
+        </SafeArea>
+      )}
+    </>
   );
 };
 
@@ -147,7 +157,7 @@ const TagContainer = styled.View`
 `;
 
 const CarsList = styled(FlatList)`
-  padding: ${(props) => props.theme.space[0]} 0;
+  padding: ${(props) => props.theme.space[0]} ${(props) => props.theme.space[2]};
 `;
 
 export const Title = styled(Text)`
@@ -157,10 +167,6 @@ export const Title = styled(Text)`
   color: ${(props) => props.theme.colors.text.primary};
   font-family: ${(props) => props.theme.fonts.body};
   text-transform: uppercase;
-`;
-
-const ListContainer = styled.ScrollView`
-  padding: 0 ${(props) => props.theme.space[3]};
 `;
 
 const Section = styled.View`

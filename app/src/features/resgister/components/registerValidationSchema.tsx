@@ -9,7 +9,12 @@ export const registerValidationSchema = yup.object().shape({
     .string()
     .min(8, ({ min }) => `Password must be at least ${min} characters`)
     .required("Password is required"),
-  name: yup
+  lastName: yup
+    .string()
+    .min(3, ({ min }) => `Password must be at least ${min} characters`)
+    .max(30, ({ max }) => `Password must be at most ${max} characters`)
+    .required("Please enter a valid name"),
+  firstName: yup
     .string()
     .min(3, ({ min }) => `Password must be at least ${min} characters`)
     .max(30, ({ max }) => `Password must be at most ${max} characters`)
