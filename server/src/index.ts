@@ -15,10 +15,10 @@ import mainRouter from "./routes";
 import { NotFoundError } from "./errors/not-found-error";
 import logger from "./services/logger";
 const app = express();
-const corsOptions = { credentials: true, origin: "http://localhost:3000" };
+const corsOptions = { credentials: true, origin: "*" };
 app.use(express.static(path.join(__dirname, "../upload")));
 
-app.use(cors(corsOptions));
+app.use(cors());
 const router = express.Router();
 app.use(morgan("dev"));
 app.use(express.json());
