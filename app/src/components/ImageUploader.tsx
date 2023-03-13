@@ -4,13 +4,13 @@ import * as ImagePicker from "expo-image-picker";
 import styled from "styled-components";
 import { Ionicons as Icon } from "@expo/vector-icons";
 
-function ImageUploaderInput() {
-  const [image, setImage] = React.useState<any[]>([]);
-
-  const addImageToState = (uri: string) => {
-    setImage((prevState) => [...prevState, uri]);
-  };
-
+function ImageUploaderInput({
+  addImageToState,
+  image,
+}: {
+  addImageToState: (image: string) => void;
+  image: string;
+}) {
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({

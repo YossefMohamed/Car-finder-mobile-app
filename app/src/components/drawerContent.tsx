@@ -14,8 +14,11 @@ import {
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { Ionicons as Icon } from "@expo/vector-icons";
 import { SafeArea } from "./safeArea";
+import { useAuthStore } from "../zustand/stores";
 
 export function DrawerContent(props: any) {
+  const { logout } = useAuthStore();
+
   return (
     <SafeArea style={{ flex: 1 }}>
       <ScrollView {...props} style={{ marginTop: 0, paddingTop: 0 }}>
@@ -120,9 +123,7 @@ export function DrawerContent(props: any) {
           style={{ marginTop: "auto" }}
           label="Sign Out"
           onPress={() => {
-            console.log("====================================");
-            console.log("out");
-            console.log("====================================");
+            logout();
           }}
         />
       </View>

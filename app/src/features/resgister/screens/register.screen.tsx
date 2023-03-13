@@ -12,7 +12,6 @@ import { Formik } from "formik";
 import { registerValidationSchema } from "../components/registerValidationSchema";
 import { useMutation } from "react-query";
 import Users from "../../../api/UsersEndpoint";
-import { AxiosError } from "axios";
 
 function RegisterScreen() {
   const navigation = useNavigation();
@@ -23,15 +22,12 @@ function RegisterScreen() {
     error: registerError,
   }: { isLoading: boolean; mutate: any; error: any } = useMutation(
     (data: any) => {
-      return Users.userLogin(data);
+      return Users.userRegister(data);
     },
     {
       onSuccess: () => navigation.navigate("LoginScreen"),
     }
   );
-  console.log("error");
-  console.log(registerError.error);
-  console.log("error");
 
   return (
     <SafeArea>
@@ -68,13 +64,14 @@ function RegisterScreen() {
                   <Text variant="caption">Sign up to start your journey</Text>
                 </CaptionContainer>
                 <ErrorContainer>
-                  {registerError.error.map(
-                    ({ message, idx }: { message: string; idx: number }) => (
-                      <Text variant="error" key={idx}>
-                        {message}
-                      </Text>
-                    )
-                  )}
+                  {registerError &&
+                    registerError.error.map(
+                      ({ message, idx }: { message: string; idx: number }) => (
+                        <Text variant="error" key={idx}>
+                          {message}
+                        </Text>
+                      )
+                    )}
                 </ErrorContainer>
 
                 <TextInputContainer>

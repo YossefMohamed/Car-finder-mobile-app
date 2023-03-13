@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/core";
-import React from "react";
+import React, { useEffect } from "react";
 import { ScrollView, TextInput } from "react-native";
 import styled from "styled-components";
 import images from "../../../../assets/Images";
@@ -9,9 +9,30 @@ import { SafeArea } from "../../../components/safeArea";
 import { Text } from "../../../components/typography";
 import { Formik } from "formik";
 import { loginValidationSchema } from "../components/loginValidationSchema";
+import Users from "../../../api/UsersEndpoint";
+import { useMutation } from "react-query";
+import { useAuthStore } from "../../../zustand/stores";
 
 function LoginScreen() {
   const navigate = useNavigation();
+  const { isAuthenticated, login } = useAuthStore();
+  useEffect(() => {
+    isAuthenticated && navigate.navigate("Home");
+  }, [isAuthenticated]);
+  const {
+    isLoading,
+    mutate,
+    error: loginError,
+  }: { isLoading: boolean; mutate: any; error: any } = useMutation(
+    (data: any) => {
+      return Users.userLogin(data);
+    },
+    {
+      onSuccess: (data) => {
+        login(data.token);
+      },
+    }
+  );
   return (
     <SafeArea>
       <ScrollView>
@@ -20,12 +41,26 @@ function LoginScreen() {
           <CustomScreenHeader>Hello There Welcome Back</CustomScreenHeader>
           <CaptionContainer>
             <Text variant="caption">Sign in to start your journey</Text>
+            {loginError &&
+              loginError.errors.map(
+                ({ message, idx }: { message: string; idx: number }) => (
+                  <Text variant="error" key={idx}>
+                    {message}
+                  </Text>
+                )
+              )}
           </CaptionContainer>
+
+          {isLoading ? (
+            <Text variant="caption">"Checking your credentials.." </Text>
+          ) : (
+            ""
+          )}
 
           <Formik
             validationSchema={loginValidationSchema}
             initialValues={{ email: "", password: "" }}
-            onSubmit={(values) => console.log(values)}
+            onSubmit={(values) => mutate(values)}
           >
             {({
               handleChange,

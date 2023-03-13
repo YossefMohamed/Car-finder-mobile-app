@@ -1,57 +1,38 @@
 import { create } from "zustand";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { devtools } from "zustand/middleware";
 
-export type AuthStore = {
-  user: string | null;
-  login: (username: string, password: string) => Promise<void>;
-  logout: () => void;
-};
+interface AuthStore {
+  isAuthenticated: boolean;
+  token: string;
+  login: (token: string) => Promise<void>;
+  logout: () => Promise<void>;
+}
 
-export type UserStore = {
-  userData: UserData | null;
-  fetchUserData: (userId: string) => Promise<void>;
-};
+export const useAuthStore = create<AuthStore>()(
+  devtools((set) => {
+    // Get token from storage on initialization
+    AsyncStorage.getItem("token")
+      .then((token) => {
+        if (token) {
+          set({ isAuthenticated: true, token });
+        }
+      })
+      .catch((error) =>
+        console.error("Error getting token from storage:", error)
+      );
 
-export type SettingsStore = {
-  darkMode: boolean;
-  toggleDarkMode: () => void;
-};
-
-export type UserData = {
-  id: string;
-  name: string;
-  email: string;
-};
-
-export const useAuthStore = create<AuthStore>((set) => ({
-  user: null,
-  login: async (username: string, password: string) => {
-    // This is where you would check the credentials against a database or API
-    // For this example, we'll just hardcode a user
-    const user = { id: "1", username: "testuser", password: "password" };
-    if (username === user.username && password === user.password) {
-      set({ user: user.id });
-    } else {
-      throw new Error("Invalid username or password");
-    }
-  },
-  logout: () => set({ user: null }),
-}));
-
-export const useUserStore = create<UserStore>((set) => ({
-  userData: null,
-  fetchUserData: async (userId: string) => {
-    // This is where you would fetch the user data from a database or API
-    // For this example, we'll just hardcode the user data
-    const userData = {
-      id: "1",
-      name: "Test User",
-      email: "testuser@example.com",
+    return {
+      isAuthenticated: false,
+      token: "",
+      login: async (token: string) => {
+        await AsyncStorage.setItem("token", token);
+        set((state) => ({ ...state, token, isAuthenticated: true }));
+      },
+      logout: async () => {
+        await AsyncStorage.removeItem("token");
+        set((state) => ({ ...state, token: "", isAuthenticated: false }));
+      },
     };
-    set({ userData });
-  },
-}));
-
-export const useSettingsStore = create<SettingsStore>((set) => ({
-  darkMode: false,
-  toggleDarkMode: () => set((state) => ({ darkMode: !state.darkMode })),
-}));
+  })
+);

@@ -1,10 +1,25 @@
 import axios, { AxiosError } from "axios";
 
-const client = (() => {
-  return axios.create({
+const client = ({ options, token }: any) => {
+  const createAxiosClient = axios.create({
     baseURL: "http://192.168.0.68:5000/api/",
   });
-})();
+
+  createAxiosClient.interceptors.request.use(
+    (config) => {
+      if (token) {
+        config.headers.Authorization = "Bearer " + token;
+      }
+
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+
+  return createAxiosClient;
+};
 
 const request = async function (options: any) {
   let data: any;
@@ -14,6 +29,7 @@ const request = async function (options: any) {
   };
 
   const onError = (error: AxiosError) => {
+    console.log(error);
     return Promise.reject(error.response!.data);
   };
 

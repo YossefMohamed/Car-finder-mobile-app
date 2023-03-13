@@ -6,19 +6,32 @@ import { Text } from "../../../components/typography";
 import CustomTextInput from "../../../components/CustomTextInput";
 import CustomButton from "../../../components/button";
 import ImageUploaderInput from "../../../components/ImageUploader";
+import { useMutation } from "react-query";
+import Cars from "../../../api/CarEndpoints";
+import { Formik } from "formik";
+import { sellCarValidationSchema } from "../components/sellCarValidationSchema";
 
 function SellCar() {
-  const [title, setTitle] = React.useState("");
-  const [description, setDescription] = React.useState("");
-  const [price, setPrice] = React.useState("");
-  const [images, setImages] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [error, setError] = React.useState("");
-
-  const ValidatePrice = (text: string) => {
-    setPrice(text.replace(/[^0-9]/g, ""));
+  const [image, setImage] = React.useState<any[]>([]);
+  const addImageToState = (uri: string) => {
+    setImage((prevState) => [...prevState, uri]);
   };
 
+  const {
+    isLoading,
+    mutate,
+    error: createCarError,
+  }: { isLoading: boolean; mutate: any; error: any } = useMutation(
+    (data: any) => {
+      return Cars.createCar(data);
+    },
+    {
+      onSuccess: (data) => {
+        console.log(data);
+      },
+    }
+  );
+  console.log(createCarError);
   return (
     <SafeArea>
       <SellCarHeader />
@@ -28,36 +41,119 @@ function SellCar() {
           start by selecting the car you want to sell and then fill in the
           details.
         </Text>
-        <FormContainer>
-          <InputContainer>
-            <Text variant="caption">CAR MODEL</Text>
-            <CustomTextInput placeholder="Car Model" />
-          </InputContainer>
-          <InputContainer>
-            <Text variant="caption">CAR YEAR</Text>
 
-            <CustomTextInput placeholder="Car Year" />
-          </InputContainer>
-          <InputContainer>
-            <Text variant="caption">CAR PRICE</Text>
-            <CustomTextInput
-              placeholder="Car Price"
-              keyboardType="numeric"
-              onChangeText={ValidatePrice}
-              value={price}
-            />
-          </InputContainer>
-          <InputContainer>
-            <Text variant="caption">CAR DESCRIPTION</Text>
-            <CustomTextInput multiline={true} placeholder="Car Description" />
-          </InputContainer>
-          <InputContainer>
-            <ImageUploaderInput />
-          </InputContainer>
-          <ButtonContainer>
-            <CustomButton text="Sell Car" onPress={() => {}} />
-          </ButtonContainer>
-        </FormContainer>
+        {isLoading ? (
+          <Text variant="caption">"Submitting your data ...."</Text>
+        ) : (
+          ""
+        )}
+        {/* {createCarError &&
+          createCarError.error.map(
+            ({ message, idx }: { message: string; idx: number }) => (
+              <Text variant="error" key={idx}>
+                {message}
+              </Text>
+            )
+          )} */}
+        <Formik
+          validationSchema={sellCarValidationSchema}
+          initialValues={{
+            title: "",
+            decription: "",
+            categoryId: 0,
+            price: 0,
+          }}
+          onSubmit={(values: any) => {
+            if (image.length) {
+              const formData = new FormData();
+              formData.append("title", values.title);
+              formData.append("description", values.description);
+              formData.append("categoryId", values.categoryId);
+              formData.append("price", values.price);
+              image.forEach((img) => {
+                formData.append("image", img);
+              });
+              mutate(formData);
+            }
+          }}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            isValid,
+          }) => (
+            <FormContainer>
+              <InputContainer>
+                <Text variant="caption">CAR MODEL</Text>
+                <CustomTextInput
+                  placeholder="Car Model"
+                  name="categoryId"
+                  onChangeText={handleChange("categoryId")}
+                  onBlur={handleBlur("categoryId")}
+                  value={values.categoryId}
+                  error={!!errors.categoryId}
+                />
+                {errors.categoryId && (
+                  <Text variant="error">{errors.categoryId}</Text>
+                )}
+              </InputContainer>
+
+              <InputContainer>
+                <Text variant="caption">CAR name</Text>
+                <CustomTextInput
+                  placeholder="Car name"
+                  name="title"
+                  onChangeText={handleChange("title")}
+                  onBlur={handleBlur("title")}
+                  value={values.title}
+                  error={!!errors.title}
+                />
+
+                {errors.title && <Text variant="error">{errors.title}</Text>}
+              </InputContainer>
+
+              <InputContainer>
+                <Text variant="caption">CAR PRICE</Text>
+                <CustomTextInput
+                  name="price"
+                  placeholder="Price"
+                  onChangeText={handleChange("price")}
+                  onBlur={handleBlur("price")}
+                  value={values.price}
+                  error={!!errors.price}
+                />
+                {errors.price && <Text variant="error">{errors.price}</Text>}
+              </InputContainer>
+              <InputContainer>
+                <Text variant="caption">CAR DESCRIPTION</Text>
+                <CustomTextInput
+                  multiline={true}
+                  name="description"
+                  placeholder="description"
+                  onChangeText={handleChange("description")}
+                  onBlur={handleBlur("description")}
+                  value={values.description}
+                  error={!!errors.description}
+                />
+                {errors.description && (
+                  <Text variant="error">{errors.description}</Text>
+                )}
+              </InputContainer>
+              <InputContainer>
+                <ImageUploaderInput
+                  addImageToState={addImageToState}
+                  image={image}
+                />
+              </InputContainer>
+              <ButtonContainer>
+                <CustomButton text="Sell Car" onPress={handleSubmit} />
+              </ButtonContainer>
+            </FormContainer>
+          )}
+        </Formik>
       </ScreenContainer>
     </SafeArea>
   );
