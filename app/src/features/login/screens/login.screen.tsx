@@ -33,6 +33,8 @@ function LoginScreen() {
       },
     }
   );
+
+  console.log(loginError);
   return (
     <SafeArea>
       <ScrollView>
@@ -41,14 +43,6 @@ function LoginScreen() {
           <CustomScreenHeader>Hello There Welcome Back</CustomScreenHeader>
           <CaptionContainer>
             <Text variant="caption">Sign in to start your journey</Text>
-            {loginError &&
-              loginError.errors.map(
-                ({ message, idx }: { message: string; idx: number }) => (
-                  <Text variant="error" key={idx}>
-                    {message}
-                  </Text>
-                )
-              )}
           </CaptionContainer>
 
           {isLoading ? (

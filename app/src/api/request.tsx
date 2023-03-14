@@ -1,39 +1,36 @@
 import axios, { AxiosError } from "axios";
 
-const client = ({ options, token }: any) => {
-  const createAxiosClient = axios.create({
+const client = (() => {
+  return axios.create({
     baseURL: "http://192.168.0.68:5000/api/",
   });
+})();
 
-  createAxiosClient.interceptors.request.use(
-    (config) => {
-      if (token) {
-        config.headers.Authorization = "Bearer " + token;
-      }
-
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error);
-    }
-  );
-
-  return createAxiosClient;
-};
-
-const request = async function (options: any) {
+const request = async function (options: any, token?: string) {
   let data: any;
+  console.log(options, token);
+  client.defaults.headers.common.Authorization = token ? `Bearer ${token}` : "";
   const onSuccess = (response: any) => {
     data = response.data.data;
     return data;
   };
 
   const onError = (error: AxiosError) => {
-    console.log(error);
-    return Promise.reject(error.response!.data);
+    console.log(error.response!.data);
+    return Promise.reject(error);
   };
 
-  return client(options).then(onSuccess).catch(onError);
+  return client(options)
+    .then(onSuccess)
+    .catch((e: any) => {
+      console.log("e");
+      console.log("e");
+      console.log(e);
+      console.log(e);
+      console.log(e);
+      console.log("e");
+      console.log("e");
+    });
 };
 
 export default request;

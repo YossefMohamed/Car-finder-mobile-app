@@ -10,20 +10,21 @@ import { useMutation } from "react-query";
 import Cars from "../../../api/CarEndpoints";
 import { Formik } from "formik";
 import { sellCarValidationSchema } from "../components/sellCarValidationSchema";
+import { useAuthStore } from "../../../zustand/stores";
 
 function SellCar() {
   const [image, setImage] = React.useState<any[]>([]);
   const addImageToState = (uri: string) => {
     setImage((prevState) => [...prevState, uri]);
   };
-
+  const { token } = useAuthStore();
   const {
     isLoading,
     mutate,
     error: createCarError,
   }: { isLoading: boolean; mutate: any; error: any } = useMutation(
     (data: any) => {
-      return Cars.createCar(data);
+      return Cars.createCar(data, token);
     },
     {
       onSuccess: (data) => {
