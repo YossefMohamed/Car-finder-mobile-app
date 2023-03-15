@@ -9,14 +9,11 @@ export default class Users {
     });
   }
 
-  static userLogin(data: any, token: any) {
-    return request(
-      {
-        url: "/users/login",
-        method: "POST",
-        data,
-      },
-      token
-    );
+  static userLogin(data: any) {
+    return request({
+      url: "/users/login",
+      method: "POST",
+      data,
+    });
   }
 }

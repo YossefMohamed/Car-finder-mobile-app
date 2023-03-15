@@ -5,7 +5,8 @@ import { devtools } from "zustand/middleware";
 interface AuthStore {
   isAuthenticated: boolean;
   token: string;
-  login: (token: string) => Promise<void>;
+  refreshToken: string;
+  login: (token: string, refreshToken: string) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -21,13 +22,29 @@ export const useAuthStore = create<AuthStore>()(
       .catch((error) =>
         console.error("Error getting token from storage:", error)
       );
+    AsyncStorage.getItem("refreshToken")
+      .then((refreshToken) => {
+        if (refreshToken) {
+          set({ refreshToken });
+        }
+      })
+      .catch((error) =>
+        console.error("Error getting token from storage:", error)
+      );
 
     return {
       isAuthenticated: false,
       token: "",
-      login: async (token: string) => {
+      refreshToken: "",
+      login: async (token: string, refreshToken: string) => {
         await AsyncStorage.setItem("token", token);
-        set((state) => ({ ...state, token, isAuthenticated: true }));
+        await AsyncStorage.setItem("refreshToken", refreshToken);
+        set((state) => ({
+          ...state,
+          token,
+          isAuthenticated: true,
+          refreshToken,
+        }));
       },
       logout: async () => {
         await AsyncStorage.removeItem("token");

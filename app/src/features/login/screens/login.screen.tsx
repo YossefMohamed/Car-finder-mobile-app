@@ -15,8 +15,13 @@ import { useAuthStore } from "../../../zustand/stores";
 
 function LoginScreen() {
   const navigate = useNavigation();
-  const { isAuthenticated, login } = useAuthStore();
+  const { isAuthenticated, login, refreshToken } = useAuthStore();
   useEffect(() => {
+    console.log("refreshToken");
+    console.log(refreshToken);
+    console.log("refreshToken");
+    console.log(refreshToken);
+    console.log("refreshToken");
     isAuthenticated && navigate.navigate("Home");
   }, [isAuthenticated]);
   const {
@@ -29,12 +34,11 @@ function LoginScreen() {
     },
     {
       onSuccess: (data) => {
-        login(data.token);
+        login(data.token, data.refreshToken);
       },
     }
   );
 
-  console.log(loginError);
   return (
     <SafeArea>
       <ScrollView>
