@@ -44,7 +44,7 @@ function SellCar() {
         </Text>
 
         {isLoading ? (
-          <Text variant="caption">"Submitting your data ...."</Text>
+          <Text variant="caption">Submitting your data ....</Text>
         ) : (
           ""
         )}

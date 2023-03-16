@@ -9,28 +9,20 @@ const client = (() => {
 const request = async function (options: any, token?: string) {
   let data: any;
   console.log(options, token);
-  client.defaults.headers.common.Authorization = token ? `Bearer ${token}` : "";
+  client.interceptors.request.use(function (config) {
+    config.headers.Authorization = token ? `Bearer ${token}` : "";
+    return config;
+  });
   const onSuccess = (response: any) => {
     data = response.data.data;
     return data;
   };
 
   const onError = (error: AxiosError) => {
-    console.log(error.response!.data);
-    return Promise.reject(error);
+    return Promise.reject(error.response!.data);
   };
 
-  return client(options)
-    .then(onSuccess)
-    .catch((e: any) => {
-      console.log("e");
-      console.log("e");
-      console.log(e);
-      console.log(e);
-      console.log(e);
-      console.log("e");
-      console.log("e");
-    });
+  return client(options).then(onSuccess).catch(onError);
 };
 
 export default request;
