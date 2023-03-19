@@ -15,9 +15,9 @@ const CarouselCards = () => {
       title: "3.6s",
     },
     {
-      iconName: "gas-pump",
-      description: "Range",
-      title: "450KM",
+      iconName: "dollar-sign",
+      description: "200$",
+      title: "Price",
     },
   ];
   return (

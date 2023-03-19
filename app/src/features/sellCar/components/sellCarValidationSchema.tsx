@@ -15,5 +15,5 @@ export const sellCarValidationSchema = yup.object().shape({
     .number()
     .min(3, ({ min }) => `price must be at least ${min} characters`)
     .required("Please enter a valid price"),
-  categoryId: yup.number().required("Please select category."),
+  categoryId: yup.string().required("Please select category."),
 });

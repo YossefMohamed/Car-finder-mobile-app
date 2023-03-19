@@ -8,6 +8,7 @@ interface AuthStore {
   refreshToken: string;
   login: (token: string, refreshToken: string) => Promise<void>;
   logout: () => Promise<void>;
+  useRefreshToken: (token: string) => Promise<void>;
 }
 
 export const useAuthStore = create<AuthStore>()(
@@ -48,7 +49,21 @@ export const useAuthStore = create<AuthStore>()(
       },
       logout: async () => {
         await AsyncStorage.removeItem("token");
-        set((state) => ({ ...state, token: "", isAuthenticated: false }));
+        await AsyncStorage.removeItem("refreshToken");
+        set((state) => ({
+          ...state,
+          token: "",
+          isAuthenticated: false,
+          refreshToken: "",
+        }));
+      },
+      useRefreshToken: async (token: string) => {
+        await AsyncStorage.setItem("token", token);
+        set((state) => ({
+          ...state,
+          token,
+          isAuthenticated: true,
+        }));
       },
     };
   })

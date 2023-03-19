@@ -21,6 +21,7 @@ import SearchComponent from "../components/search-component";
 import { useQuery } from "react-query";
 import Categories from "../../../api/CategoriesEndpoints";
 import LoadingSpinner from "../../../components/loadingSpinner";
+import Cars from "../../../api/CarEndpoints";
 
 const ListHeader = ({ onChangeSearch, searchQuery, categories }: any) => (
   <>
@@ -131,7 +132,12 @@ const CarsScreen = () => {
   const { data: categories, isLoading } = useQuery(["categories"], () =>
     Categories.getCategories()
   );
-  console.log(isLoading, categories);
+  const { data: carsList, isLoading: carsListLoading } = useQuery(
+    ["cars"],
+    () => Cars.getCars()
+  );
+
+  console.log(carsList);
   return (
     <>
       {isLoading ? (
@@ -140,7 +146,7 @@ const CarsScreen = () => {
         <SafeArea>
           {isLoading}
           <CarsList
-            data={carData}
+            data={carsList}
             renderItem={({ item }) => <CarsInfoCard {...item} />}
             keyExtractor={(item, index: number) => `${index}`}
             ListHeaderComponent={<ListHeader categories={categories} />}

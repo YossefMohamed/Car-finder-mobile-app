@@ -13,18 +13,21 @@ import { sellCarValidationSchema } from "../components/sellCarValidationSchema";
 import { useAuthStore } from "../../../zustand/stores";
 
 function SellCar() {
-  const [image, setImage] = React.useState<any[]>([]);
+  const [image, setImage] = React.useState<string[]>([]);
   const addImageToState = (uri: string) => {
     setImage((prevState) => [...prevState, uri]);
   };
-  const { token } = useAuthStore();
+  const removeImageFromState = (idx: number) => {
+    image.filter((_, i) => i !== idx);
+  };
+  const { token, useRefreshToken, refreshToken } = useAuthStore();
   const {
     isLoading,
     mutate,
     error: createCarError,
   }: { isLoading: boolean; mutate: any; error: any } = useMutation(
     (data: any) => {
-      return Cars.createCar(data, token);
+      return Cars.createCar(data, token, useRefreshToken, refreshToken);
     },
     {
       onSuccess: (data) => {
@@ -49,7 +52,7 @@ function SellCar() {
           ""
         )}
         {/* {createCarError &&
-          createCarError.error.map(
+          createCarError.errors.map(
             ({ message, idx }: { message: string; idx: number }) => (
               <Text variant="error" key={idx}>
                 {message}
@@ -61,7 +64,7 @@ function SellCar() {
           initialValues={{
             title: "",
             decription: "",
-            categoryId: 0,
+            categoryId: "",
             price: 0,
           }}
           onSubmit={(values: any) => {
@@ -71,8 +74,16 @@ function SellCar() {
               formData.append("description", values.description);
               formData.append("categoryId", values.categoryId);
               formData.append("price", values.price);
-              image.forEach((img) => {
-                formData.append("image", img);
+              image.forEach((uri) => {
+                let fileType = uri.substring(uri.lastIndexOf(".") + 1);
+
+                let formData = new FormData();
+
+                formData.append("image", {
+                  uri,
+                  name: `photo.${fileType}`,
+                  type: `image/${fileType}`,
+                });
               });
               mutate(formData);
             }
@@ -147,6 +158,7 @@ function SellCar() {
                 <ImageUploaderInput
                   addImageToState={addImageToState}
                   image={image}
+                  removeImageFromState={removeImageFromState}
                 />
               </InputContainer>
               <ButtonContainer>

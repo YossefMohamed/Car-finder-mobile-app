@@ -26,96 +26,109 @@ import {
 } from "./car.screen.styles";
 import DialogComponent from "../../../components/Dialog";
 import SnackBar from "../../../components/snackBar";
+import { RouteProp } from "@react-navigation/native";
+import Cars from "../../../api/CarEndpoints";
+import { useQuery } from "react-query";
+import LoadingSpinner from "../../../components/loadingSpinner";
 
-function CarScreen() {
+interface CarScreenProp {
+  route: {
+    params: {
+      carId: string;
+    };
+  };
+}
+function CarScreen({ route }: CarScreenProp) {
   const [overall, setOverall] = useState(false);
   const [dialogAppear, setDialogAppear] = useState(false);
   const [snackBarVisible, setSnackBarVisible] = React.useState(false);
-
+  const { carId } = route.params;
+  const { data: carData, isLoading: carIsLoading } = useQuery(["car"], () =>
+    Cars.getCar(carId)
+  );
   return (
     <SafeArea>
-      <ScrollView>
-        <DialogComponent
-          visible={dialogAppear}
-          setVisible={setDialogAppear}
-          action={() => setSnackBarVisible(true)}
-        />
-        <SwipperContainer>
-          <CarScreenHeader />
-          <CarouselCars />
-        </SwipperContainer>
-        <Details>
-          <Row>
-            <Text variant="title">Audi RS7udi RS7 2004 </Text>
-            <UserContainer>
-              <UserImage
-                source={{
-                  uri: "https://images.unsplash.com/photo-1538689621163-f5be0ad13ec7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
-                }}
-              />
+      {carIsLoading ? (
+        <LoadingSpinner />
+      ) : (
+        <>
+          <ScrollView>
+            <DialogComponent
+              visible={dialogAppear}
+              setVisible={setDialogAppear}
+              action={() => setSnackBarVisible(true)}
+            />
+            <SwipperContainer>
+              <CarScreenHeader />
+              <CarouselCars />
+            </SwipperContainer>
+            <Details>
               <Row>
-                <Text variant="body">4.5</Text>
-                <RatingContainer>
-                  <SvgXml xml={star} width={15} height={15} />
-                </RatingContainer>
+                <Text variant="title">{carData.title}</Text>
+                <UserContainer>
+                  <UserImage
+                    source={{
+                      uri: "https://images.unsplash.com/photo-1538689621163-f5be0ad13ec7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
+                    }}
+                  />
+                  <Row>
+                    <Text variant="body">4.5</Text>
+                    <RatingContainer>
+                      <SvgXml xml={star} width={15} height={15} />
+                    </RatingContainer>
+                  </Row>
+                </UserContainer>
               </Row>
-            </UserContainer>
-          </Row>
 
-          <TagContainer>
-            <Tag
-              text="Overall"
-              selected={overall}
-              onPress={() => setOverall(true)}
+              <TagContainer>
+                <Tag
+                  text="Overall"
+                  selected={overall}
+                  onPress={() => setOverall(true)}
+                />
+                <Tag
+                  text="Description"
+                  selected={!overall}
+                  onPress={() => setOverall(false)}
+                />
+              </TagContainer>
+
+              {overall ? (
+                <Overall>
+                  <CarouselCards />
+                </Overall>
+              ) : (
+                <Overall>
+                  <Description>
+                    <Text variant="title">DESCRIPTION :</Text>
+                    <DescriptionBody>
+                      <Text variant="paragraph">{carData.description}</Text>
+                    </DescriptionBody>
+                  </Description>
+                </Overall>
+              )}
+            </Details>
+          </ScrollView>
+          <ButtonContainer>
+            <PriceCotnainer>
+              <Text variant="title">$0.85</Text>
+            </PriceCotnainer>
+
+            <CustomButton
+              text="Contact seller"
+              onPress={() => {
+                setDialogAppear((prev) => !prev);
+              }}
             />
-            <Tag
-              text="Description"
-              selected={!overall}
-              onPress={() => setOverall(false)}
-            />
-          </TagContainer>
+          </ButtonContainer>
 
-          {overall ? (
-            <Overall>
-              <CarouselCards />
-            </Overall>
-          ) : (
-            <Overall>
-              <Description>
-                <Text variant="title">DESCRIPTION :</Text>
-                <DescriptionBody>
-                  <Text variant="paragraph">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Quia dicta modi nostrum odit odio nemo neque vel officiis
-                    sit similique voluptas enim qui veritatis error velit cum
-                    voluptate, quisquam quibusdam?nostrum odit odio nemo neque
-                    vel officiis sit similique voluptas enim qui veritatis error
-                    velit cum voluptate, quisquam quibusdam?
-                  </Text>
-                </DescriptionBody>
-              </Description>
-            </Overall>
-          )}
-        </Details>
-      </ScrollView>
-      <ButtonContainer>
-        <PriceCotnainer>
-          <Text variant="title">$0.85</Text>
-        </PriceCotnainer>
-
-        <CustomButton
-          text="Contact seller"
-          onPress={() => {
-            setDialogAppear((prev) => !prev);
-          }}
-        />
-      </ButtonContainer>
-
-      <SnackBar
-        visible={snackBarVisible}
-        setVisible={setSnackBarVisible}
-        message="Copied to clipboard"
-      />
+          <SnackBar
+            visible={snackBarVisible}
+            setVisible={setSnackBarVisible}
+            message="Copied to clipboard"
+          />
+        </>
+      )}
     </SafeArea>
   );
 }

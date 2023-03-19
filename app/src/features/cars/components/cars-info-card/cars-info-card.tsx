@@ -24,6 +24,7 @@ import { LovedContainer } from "../../../car/screens/car.screen.styles";
 import { colors } from "../../../../infrastructure/theme/colors";
 const CarsInfoCard: React.FC<any> = ({
   name = "Peugeot",
+  id,
   icon = "S",
   photos = [
     "https://media.autoexpress.co.uk/image/private/s--VxqYOYmG--/f_auto,t_content-image-full-mobile@1/v1614096781/autoexpress/2021/02/Jaguar%20XF%202021%20-%20front%20driving.jpg",
@@ -55,7 +56,13 @@ const CarsInfoCard: React.FC<any> = ({
     //     <Description>Card content</Description>
     //   </Info>
     // </CardContainer>
-    <CardContainer onPress={() => navigation.navigate("CarScreen")}>
+    <CardContainer
+      onPress={() =>
+        navigation.navigate("CarScreen", {
+          carId: id,
+        })
+      }
+    >
       <LovedContainer
         onPress={() => navigation.getParent("filterDrawer").openDrawer()}
       >

@@ -2,7 +2,6 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Text, StyleSheet, Dimensions, Image } from "react-native";
 import { colors } from "../infrastructure/theme/colors";
-import { Ionicons } from "@expo/vector-icons";
 import styled from "styled-components";
 import { FontAwesome5 } from "@expo/vector-icons";
 
